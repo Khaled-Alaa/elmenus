@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { Link } from "react-router-dom";
 
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
@@ -13,7 +14,9 @@ class MainHeader extends Component {
       <Navbar bg="light" variant="light" fixed="top">
         <Navbar.Brand href="#home">elmenus</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link href="#login">LOGIN</Nav.Link>
+          <Nav.Link>
+            <Link to="/">LOGIN</Link>
+          </Nav.Link>
           <Nav.Link href="#signup">SIGNUP</Nav.Link>
           <Form inline>
             <Form.Control

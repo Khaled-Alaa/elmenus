@@ -5,6 +5,8 @@ import { Route, Switch } from "react-router-dom";
 import MainHeader from "../components/header/index";
 import Footer from "../components/Footer/index";
 import RestaurantPage from "../pages/RestaurantPage/index";
+import LoginPage from "../pages/LoginPage/index";
+import EditingPage from "../pages/EditingPage/index";
 
 import "./styles.scss";
 
@@ -14,7 +16,9 @@ class Layout extends Component {
       <>
         <MainHeader />
         <Switch>
-          <Route exact path="/Restaurant" render={() => <RestaurantPage />} />
+          <Route exact path="/" render={(props) => <LoginPage {...props} />} />
+          <Route path="/Restaurant" render={() => <RestaurantPage />} />
+          <Route path="/Edit" render={() => <EditingPage />} />
         </Switch>
         <Footer />
       </>
