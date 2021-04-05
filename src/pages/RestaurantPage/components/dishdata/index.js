@@ -8,18 +8,24 @@ import MyVerticallyCenteredModal from "../popup/index";
 import "./styles.scss";
 function DishData(props) {
   const [modalShow, setModalShow] = React.useState(false);
+  const [itemData, setItemData] = React.useState(false);
+
+  const dataView = function (item) {
+    setModalShow(true);
+    setItemData(item);
+  };
   return (
     <div id="dishes-container">
       <MyVerticallyCenteredModal
         show={modalShow}
         onHide={() => setModalShow(false)}
-        clicked={props.filteredDishes}
+        item={itemData}
       />
 
       <h5>{props.allCataegory}</h5>
       {props.filteredDishes.length !== 0
         ? props.filteredDishes[0].items.map((item) => (
-            <div onClick={() => setModalShow(true)}>
+            <div onClick={() => dataView(item)}>
               <Row>
                 <Col sm={10}>
                   <div>{item.name}</div>
