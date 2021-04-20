@@ -29,7 +29,6 @@ class RestaurantPage extends Component {
 
   selecetedCategory(categoryName) {
     console.log(categoryName);
-    debugger;
     axios
       .get(`http://localhost:4000/categories?name=${categoryName}`)
       .then((resp) => {

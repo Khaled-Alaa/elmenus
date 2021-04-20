@@ -12,7 +12,9 @@ class MainHeader extends Component {
   render() {
     return (
       <Navbar bg="light" variant="light" fixed="top">
-        <Navbar.Brand href="#home">elmenus</Navbar.Brand>
+        <Navbar.Brand>
+          <Link to="/restaurant">elmenus</Link>
+        </Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Link>
             <Link to="/">LOGIN</Link>
