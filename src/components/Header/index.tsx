@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Container, Menu } from "semantic-ui-react";
+import { Button, Container, Image, Menu } from "semantic-ui-react";
 
-const Header: FC = () => {
+const MainHeader: FC = () => {
   const navigate = useNavigate();
 
   return (
@@ -13,7 +13,11 @@ const Header: FC = () => {
             navigate("/");
           }}
         >
-          <img alt="Logo" src="/assets/images/logo.svg" />
+          <Image
+            alt="Logo"
+            src="/assets/images/Logo.svg"
+            style={{ width: "100px", height: "auto" }}
+          />
         </Menu.Item>
 
         <Menu.Item position="right">
@@ -24,4 +28,4 @@ const Header: FC = () => {
   );
 };
 
-export default Header;
+export default MainHeader;
