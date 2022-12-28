@@ -9,19 +9,16 @@ export type TUser = [
   }
 ];
 
-export type TCategory = [
-  {
-    id: number;
-    name: string;
-  }
-];
+export type TCategory = {
+  id: number;
+  name: string;
+};
 
-export type TCategoryItems = [
-  {
-    id: number;
-    name: string;
-    description: string;
-    price: number;
-    categorId: number;
-  }
-];
+export type TCategoryItem = {
+  image: string;
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  categorId: number;
+};
