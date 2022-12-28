@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { useQuery } from "react-query";
+import Header from "../../components/Header";
 import { getCategoriesService } from "../../services";
 
 const RestaurantPage: FC = () => {
@@ -8,7 +9,12 @@ const RestaurantPage: FC = () => {
     onError: (error: Error) => alert(error.message),
   });
 
-  return <div className="page-container">menu page (Home)</div>;
+  return (
+    <div className="page-container">
+      <Header />
+      menu page (Home)
+    </div>
+  );
 };
 
 export default RestaurantPage;
