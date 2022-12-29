@@ -6,9 +6,15 @@ import NotFound from "./pages/404";
 import "./App.css";
 import { UserContext } from "./context/userContext";
 import { useState } from "react";
+import { Role } from "./interfaces";
 
 function App() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    id: 0,
+    username: "",
+    password: "",
+    role: Role.USER,
+  });
   const value = { user, setUser };
   return (
     <UserContext.Provider value={value}>

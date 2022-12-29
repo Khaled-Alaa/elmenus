@@ -1,13 +1,13 @@
 import React from "react";
-import { TUser } from "../interfaces";
+import { TUser, Role } from "../interfaces";
 
 interface IUserContext {
-  user: TUser | {};
+  user: TUser;
   setUser: (user: TUser) => void;
 }
 
 const defaultState = {
-  user: {},
+  user: { id: 0, username: "", password: "", role: Role.USER },
   setUser: () => {},
 };
 

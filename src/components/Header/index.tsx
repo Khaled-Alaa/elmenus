@@ -1,9 +1,11 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Container, Image, Menu } from "semantic-ui-react";
+import { Button, Container, Icon, Image, Label, Menu } from "semantic-ui-react";
+import { UserContext } from "../../context/userContext";
 
 const MainHeader: FC = () => {
   const navigate = useNavigate();
+  const userContext = useContext(UserContext);
 
   return (
     <Menu size="small">
@@ -21,7 +23,23 @@ const MainHeader: FC = () => {
         </Menu.Item>
 
         <Menu.Item position="right">
-          <Button onClick={() => navigate("/Login")}>LOGIN</Button>
+          {userContext.user.id ? (
+            <Button color="orange" onClick={() => navigate("/Edit")}>
+              Admin
+            </Button>
+          ) : (
+            <Button basic color="orange" onClick={() => navigate("/Login")}>
+              LOGIN
+            </Button>
+          )}
+          {userContext.user.id ? (
+            <Label basic color="orange" size="large">
+              <Icon name="user" />
+              Welcome, {userContext.user.username}
+            </Label>
+          ) : (
+            <></>
+          )}
         </Menu.Item>
       </Container>
     </Menu>
