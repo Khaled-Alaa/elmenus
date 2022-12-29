@@ -4,15 +4,21 @@ import LoginPage from "./pages/LoginPage";
 import EditingPage from "./pages/EditingPage";
 import NotFound from "./pages/404";
 import "./App.css";
+import { UserContext } from "./context/userContext";
+import { useState } from "react";
 
 function App() {
+  const [user, setUser] = useState({});
+  const value = { user, setUser };
   return (
-    <Routes>
-      <Route path="/" element={<RestaurantPage />} />
-      <Route path="/Login" element={<LoginPage />} />
-      <Route path="/Edit" element={<EditingPage />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <UserContext.Provider value={value}>
+      <Routes>
+        <Route path="/" element={<RestaurantPage />} />
+        <Route path="/Login" element={<LoginPage />} />
+        <Route path="/Edit" element={<EditingPage />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </UserContext.Provider>
   );
 }
 

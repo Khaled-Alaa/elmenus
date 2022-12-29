@@ -1,4 +1,4 @@
-import { useState, FC } from "react";
+import { useState, FC, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Button,
@@ -9,24 +9,42 @@ import {
   Grid,
   Image,
 } from "semantic-ui-react";
+import { UserContext } from "../../context/userContext";
 import MainHeader from "../../components/Header";
 import "./styles.scss";
+import { getUserByNameAndPasswordService } from "../../services";
 
 const LoginPage: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  const userContext = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setIsLoading(true);
     setIsSubmitting(true);
-    if (e) {
-      navigate("/");
+
+    try {
+      const loggedUsersData = await getUserByNameAndPasswordService(
+        e.target.username.value,
+        e.target.password.value
+      );
+      if (
+        loggedUsersData &&
+        loggedUsersData.length === 1 &&
+        loggedUsersData[0].role === "admin"
+      ) {
+        userContext.setUser(loggedUsersData[0]);
+        navigate("/Edit");
+      } else {
+        alert("user nof found");
+      }
+    } catch (error) {
+      alert(error);
     }
-    console.log("name", e.target.password.value);
-    console.log("pass", e.target.password.value);
+    setIsLoading(false);
+    setIsSubmitting(false);
   };
 
   return (

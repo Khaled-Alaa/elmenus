@@ -134,6 +134,37 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "getByName&Password",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/users/?username=admin&password=admin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								""
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "admin"
+								},
+								{
+									"key": "password",
+									"value": "admin"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
