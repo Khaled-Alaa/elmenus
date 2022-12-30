@@ -16,11 +16,13 @@
   "categories": [
     {
       "id": 80877,
-      "name": "Appetizers"
+      "name": "Appetizers",
+      "description": ""
     },
     {
       "id": 21281,
-      "name": "Salads"
+      "name": "Salads",
+      "description": ""
     }
   ],
   "items": [

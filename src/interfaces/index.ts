@@ -12,6 +12,7 @@ export type TUser = {
 export type TCategory = {
   id: number;
   name: string;
+  description: string;
 };
 
 export type TCategoryItem = {

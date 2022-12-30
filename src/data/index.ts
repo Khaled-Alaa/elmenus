@@ -19,3 +19,16 @@ export const getLoggedUserData = (
 ): Promise<AxiosResponse<TUser[]>> => {
   return httpClient.get<TUser[]>(urls.user(name, password));
 };
+
+export const postNewCategory = ({
+  categoryName,
+  categoryDescription,
+}: {
+  categoryName: string;
+  categoryDescription: string;
+}): Promise<AxiosResponse<TCategory>> => {
+  return httpClient.post<TCategory>(urls.addCategory, {
+    name: categoryName,
+    description: categoryDescription,
+  });
+};

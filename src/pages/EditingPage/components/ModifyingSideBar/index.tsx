@@ -25,33 +25,45 @@ const ModifyingSideBar: FC<{
 
   const renderCategories = (categories: TCategory[]) => {
     return categories.map((category) => (
-      <div style={{ display: "flex" }}>
+      <div>
         <Menu.Item
           key={category.id}
           name={category.name}
           active={selectedCategory.id === category.id}
           onClick={() => getSelectedCategory(category)}
-        />
-        <Icon
-          name="pencil alternate"
-          onClick={() => getEditedCategory(category)}
-          circular
-          inverted
-          color="blue"
-        />
-        <Icon
-          name="trash alternate outline"
-          onClick={() => getDeletedCategory(category)}
-          circular
-          inverted
-          color="red"
-        />
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            {category.name}
+            <label>
+              <Icon
+                name="pencil alternate"
+                onClick={() => getEditedCategory(category)}
+                circular
+                inverted
+                color="blue"
+              />
+              <Icon
+                name="trash alternate outline"
+                onClick={() => getDeletedCategory(category)}
+                circular
+                inverted
+                color="red"
+              />
+            </label>
+          </div>
+        </Menu.Item>
       </div>
     ));
   };
 
   return (
-    <Menu fluid vertical tabular>
+    <Menu fluid secondary vertical>
       {renderCategories(data)}
     </Menu>
   );

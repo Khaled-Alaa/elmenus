@@ -2,6 +2,7 @@ import {
   getCategoriesData,
   getCategoryItemsData,
   getLoggedUserData,
+  postNewCategory,
 } from "../data";
 import {
   categoryItemsTransformer,
@@ -35,6 +36,25 @@ export const getUserByNameAndPasswordService = async (
     // I used the GET method because it is a limitation in JSON.server it should be a POST method but JSON.server will understand it as adding data
     const response = await getLoggedUserData(name, password);
     return loggedUserTransformer(response.data);
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const postNewCategoryService = async ({
+  categoryName,
+  categoryDescription,
+}: {
+  categoryName: string;
+  categoryDescription: string;
+}) => {
+  try {
+    // I used the GET method because it is a limitation in JSON.server it should be a POST method but JSON.server will understand it as adding data
+    const response = await postNewCategory({
+      categoryName,
+      categoryDescription,
+    });
+    return response.data;
   } catch (error) {
     throw error;
   }

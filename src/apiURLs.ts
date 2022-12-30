@@ -6,4 +6,6 @@ export const urls = {
 
   user: (name: string, password: string) =>
     `http://localhost:8000/users/?username=${name}&password=${password}`,
+
+  addCategory: `http://localhost:8000/categories`,
 };

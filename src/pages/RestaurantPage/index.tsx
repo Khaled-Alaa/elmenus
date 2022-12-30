@@ -11,6 +11,7 @@ const RestaurantPage: FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<TCategory>({
     id: 0,
     name: "",
+    description: "",
   });
 
   const { data: categoriesData } = useQuery(

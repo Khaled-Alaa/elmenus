@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Item, Label, Container, Icon } from "semantic-ui-react";
+import { Icon, Segment } from "semantic-ui-react";
 import { TCategoryItem } from "../../../../interfaces";
 import MenuItem from "../../../RestaurantPage/components/Menu";
 
@@ -15,23 +15,25 @@ const ModifyingMenu: FC<{
   const { data, getEditedItem, getDeletedCategory } = props;
 
   return (
-    <>
-      <Icon
-        name="pencil alternate"
-        onClick={() => getEditedItem(data)}
-        circular
-        inverted
-        color="blue"
-      />
-      <Icon
-        name="trash alternate outline"
-        onClick={() => getDeletedCategory(data)}
-        circular
-        inverted
-        color="red"
-      />
+    <Segment>
+      <div style={{ display: "flex", justifyContent: "end" }}>
+        <Icon
+          name="pencil alternate"
+          onClick={() => getEditedItem(data)}
+          circular
+          inverted
+          color="blue"
+        />
+        <Icon
+          name="trash alternate outline"
+          onClick={() => getDeletedCategory(data)}
+          circular
+          inverted
+          color="red"
+        />
+      </div>
       <MenuItem key={data.id} data={data} />
-    </>
+    </Segment>
   );
 };
 

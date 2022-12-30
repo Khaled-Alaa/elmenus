@@ -10,9 +10,9 @@ import {
   Image,
 } from "semantic-ui-react";
 import { UserContext } from "../../context/userContext";
+import { getUserByNameAndPasswordService } from "../../services";
 import MainHeader from "../../components/Header";
 import "./styles.scss";
-import { getUserByNameAndPasswordService } from "../../services";
 
 const LoginPage: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
