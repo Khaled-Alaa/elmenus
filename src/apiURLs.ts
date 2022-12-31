@@ -1,23 +1,22 @@
+const baseURL = process.env.REACT_APP_API_BASE_URL;
 export const urls = {
-  categories: "http://localhost:8000/categories",
+  categories: `${baseURL}/categories`,
 
   categoryItems: (categoryId: number) =>
-    `http://localhost:8000/items/?categoryId=${categoryId}`,
+    `${baseURL}/items/?categoryId=${categoryId}`,
 
   user: (name: string, password: string) =>
-    `http://localhost:8000/users/?username=${name}&password=${password}`,
+    `${baseURL}/users/?username=${name}&password=${password}`,
 
-  addCategory: `http://localhost:8000/categories`,
+  addCategory: `${baseURL}/categories`,
 
-  addItem: `http://localhost:8000/items`,
+  addItem: `${baseURL}/items`,
 
-  deleteItem: (itemId: number) => `http://localhost:8000/items/${itemId}`,
+  deleteItem: (itemId: number) => `${baseURL}/items/${itemId}`,
 
-  deleteCategory: (categoryId: number) =>
-    `http://localhost:8000/categories/${categoryId}`,
+  deleteCategory: (categoryId: number) => `${baseURL}/categories/${categoryId}`,
 
-  updateItem: (itemId: number) => `http://localhost:8000/items/${itemId}`,
+  updateItem: (itemId: number) => `${baseURL}/items/${itemId}`,
 
-  updateCategory: (categoryId: number) =>
-    `http://localhost:8000/categories/${categoryId}`,
+  updateCategory: (categoryId: number) => `${baseURL}/categories/${categoryId}`,
 };
