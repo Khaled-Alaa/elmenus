@@ -2,6 +2,7 @@ import { BaseSyntheticEvent, FC } from "react";
 import { Icon, Segment } from "semantic-ui-react";
 import { TCategoryItem } from "../../../../interfaces";
 import MenuItem from "../../../RestaurantPage/components/Menu";
+import "./styles.scss";
 
 const ModifyingMenu: FC<{
   data: TCategoryItem;
@@ -16,7 +17,9 @@ const ModifyingMenu: FC<{
 
   return (
     <Segment>
-      <div style={{ display: "flex", justifyContent: "end" }}>
+      <div
+        className="modify-category-item-buttons__actions-container"
+      >
         <Icon
           name="pencil alternate"
           onClick={(e: BaseSyntheticEvent) => {

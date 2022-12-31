@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Header, Image, SemanticSIZES } from "semantic-ui-react";
+import "./styles.scss";
 
 const EmptyState: FC<{
   imageSize: SemanticSIZES;
@@ -13,18 +14,12 @@ const EmptyState: FC<{
   const { imageSize, sectorName, headerSize } = props;
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        flexDirection: "column",
-      }}
-    >
+    <div className="no-data-container">
       <Image
         alt="No Data"
         src="/assets/images/nodata.PNG"
-        style={{ margin: "auto" }}
         size={imageSize}
+        className="no-data-container__image"
       />
       <Header as={headerSize}>No {sectorName} Found</Header>
     </div>

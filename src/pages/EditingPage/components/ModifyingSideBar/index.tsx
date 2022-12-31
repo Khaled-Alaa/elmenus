@@ -1,6 +1,7 @@
 import { BaseSyntheticEvent, FC } from "react";
 import { Icon, Menu } from "semantic-ui-react";
 import { TCategory } from "../../../../interfaces";
+import "./styles.scss";
 
 const ModifyingSideBar: FC<{
   data: TCategory[];
@@ -31,13 +32,7 @@ const ModifyingSideBar: FC<{
         active={selectedCategory.id === category.id}
         onClick={() => getSelectedCategory(category)}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
+        <div className="modify-category-buttons__actions-container">
           {category.name}
           <label>
             <Icon

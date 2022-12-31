@@ -3,6 +3,7 @@ import { useMutation } from "react-query";
 import { Button, Form, Header, Icon, Modal, TextArea } from "semantic-ui-react";
 import { TCategory, TCategoryItem } from "../../../../interfaces";
 import { putItemService } from "../../../../services";
+import "./styles.scss";
 
 const EditCategoryItem: FC<{
   onTogglePopup: (isOpen: boolean) => void;
@@ -127,7 +128,9 @@ const EditCategoryItem: FC<{
             value={editItemData.description}
             onChange={handleChange}
           />
-          <div style={{ display: "flex", justifyContent: "end" }}>
+          <div
+            className="edit-category-item-form__actions-container"
+          >
             <Button
               type="button"
               color="red"

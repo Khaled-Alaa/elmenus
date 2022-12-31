@@ -1,0 +1,12 @@
+@import "../../styles/mixins.scss";
+
+.not-found-404-container {
+  @include flex-items-center;
+  flex-direction: column;
+  margin-top: 5rem;
+  justify-content: center;
+  &__image {
+    width: auto;
+    height: 250px;
+  }
+}

@@ -1,0 +1,6 @@
+@import "../../../../styles/mixins.scss";
+
+.modify-category-buttons__actions-container {
+  @include flex-items-center;
+  justify-content: space-between;
+}

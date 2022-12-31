@@ -1,0 +1,9 @@
+@import "../../styles/mixins.scss";
+
+.no-data-container {
+  @include flex-items-center;
+  flex-direction: column;
+  &__image {
+    margin: auto;
+  }
+}

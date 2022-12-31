@@ -4,4 +4,14 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  &__login-card-container {
+    height: 90vh;
+  }
+  &__login-card {
+    max-width: 350px;
+  }
+  &__login-card-image {
+    width: 100px;
+    height: auto;
+  }
 }

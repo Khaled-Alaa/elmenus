@@ -1,9 +1,10 @@
 import React, { useState, FC, BaseSyntheticEvent } from "react";
 import { useMutation } from "react-query";
-import { Button, Form, Header, Icon, Modal,TextArea } from "semantic-ui-react";
+import { Button, Form, Header, Icon, Modal, TextArea } from "semantic-ui-react";
 import Popup from "../../../../components/Popup";
 import { TCategory } from "../../../../interfaces";
 import { postNewCategoryService } from "../../../../services";
+import "./styles.scss";
 
 const AddCategory: FC<{
   isOpen: boolean;
@@ -64,7 +65,7 @@ const AddCategory: FC<{
             placeholder="category description"
             name="categoryDescription"
           />
-          <div style={{ display: "flex", justifyContent: "end" }}>
+          <div className="add-category-form__actions-container">
             <Button
               type="button"
               color="red"

@@ -52,17 +52,17 @@ const LoginPage: FC = () => {
       <MainHeader />
       <Grid
         textAlign="center"
-        style={{ height: "90vh" }}
         verticalAlign="middle"
+        className="login-page-container__login-card-container"
       >
-        <Grid.Column style={{ maxWidth: 350 }}>
+        <Grid.Column className="login-page-container__login-card">
           <Form size="large" onSubmit={handleSubmit}>
             <Segment stacked>
               <Header as="h2" textAlign="center">
                 <Image
                   alt="Logo"
                   src="/assets/images/Logo.svg"
-                  style={{ width: "100px", height: "auto" }}
+                  className="login-page-container__login-card-image"
                 />
               </Header>
               <Form.Input

@@ -2,6 +2,7 @@ import { FC, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Container, Icon, Image, Label, Menu } from "semantic-ui-react";
 import { UserContext } from "../../context/userContext";
+import "./styles.scss";
 
 const MainHeader: FC = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const MainHeader: FC = () => {
           <Image
             alt="Logo"
             src="/assets/images/Logo.svg"
-            style={{ width: "100px", height: "auto" }}
+            className="header__logo-image"
           />
         </Menu.Item>
 

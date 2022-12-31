@@ -2,6 +2,7 @@ import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Header, Image } from "semantic-ui-react";
 import MainHeader from "../../components/Header";
+import "./styles.scss";
 
 const NotFound: FC = () => {
   const navigate = useNavigate();
@@ -9,21 +10,15 @@ const NotFound: FC = () => {
   return (
     <div>
       <MainHeader />
-      <div
-        style={{
-          marginTop: "5rem",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexFlow: "column",
-        }}
-      >
+      <div className="not-found-404-container">
         <Image
           alt="Logo"
           src="/assets/images/404.PNG"
-          style={{ width: "auto", height: "250px" }}
+          className="not-found-404-container__image"
         />
-        <Header color="orange" as={"h2"}>PAGE NOT FOUND</Header>
+        <Header color="orange" as={"h2"}>
+          PAGE NOT FOUND
+        </Header>
         <Button color="orange" onClick={() => navigate("/")}>
           Go Home
         </Button>

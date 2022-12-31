@@ -24,6 +24,7 @@ import EditCategory from "./components/EditCategory";
 import EditCategoryItem from "./components/EditCategoryItem";
 import ModifyingMenu from "./components/ModifyingMenu";
 import ModifyingSideBar from "./components/ModifyingSideBar";
+import "./styles.scss";
 
 const EditingPage: FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<TCategory>({
@@ -277,7 +278,7 @@ const EditingPage: FC = () => {
         <Grid stackable>
           <Grid.Row>
             <Grid.Column width={4}>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div className="header-container">
                 <Header as={"h2"}>Menu Categories</Header>
                 <Icon
                   name="add"
@@ -305,7 +306,7 @@ const EditingPage: FC = () => {
               )}
             </Grid.Column>
             <Grid.Column width={12}>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div className="header-container">
                 <Header as={"h2"}>{selectedCategory.name} Items</Header>
                 <Icon
                   name="add"

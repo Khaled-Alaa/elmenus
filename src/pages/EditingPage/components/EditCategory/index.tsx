@@ -4,6 +4,7 @@ import { Button, Form, Header, Icon, Modal, TextArea } from "semantic-ui-react";
 import Popup from "../../../../components/Popup";
 import { TCategory } from "../../../../interfaces";
 import { putCategoryService } from "../../../../services";
+import "./styles.scss";
 
 const EditCategory: FC<{
   isOpen: boolean;
@@ -102,7 +103,7 @@ const EditCategory: FC<{
             value={editCategoryData.description}
             onChange={handleChange}
           />
-          <div style={{ display: "flex", justifyContent: "end" }}>
+          <div className="edit-category-form__actions-container">
             <Button
               type="button"
               color="red"
