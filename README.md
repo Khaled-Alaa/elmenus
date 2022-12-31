@@ -1,46 +1,90 @@
-# Getting Started with Create React App
+# El-menus App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple of elmenus app from user and Admin perspective. 
+Admin can add, delete and update the menu categories and the category items.
+User can just view the menu page.
 
-## Available Scripts
+## Screenshots
 
-In the project directory, you can run:
+<p align="center">
+  <img src="./screenshots/login.PNG" width="320" alt="Home">
+  <img src="./screenshots/admin-view.PNG" width="320" alt="Home">
+  <img src="./screenshots/user-view.PNG" width="320" alt="Home">
+  <img src="./screenshots/404.PNG" width="320" alt="Home">
+</p>
 
-### `npm start`
+## Technology Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **ReactJS** Create-react-app
+- **TypeScript**
+- **Json-Server** for Fake APIs
+- **context-API** for global state
+- **Sass** for styling
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `npm test`
+### Used Packages
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Axios
+- react-query
+- react-semantic-ui
 
-### `npm run build`
+## Development
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Main Project
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Clone the source code from `https://github.com/hamed-farag/todo.git`
+2. In your terminal, navigate to the project directory and execute `npm install`
+3. After the previous step, execute `npm run server` to run json-server for fake APIs (http://localhost:8000).
+5. In a new terminal instance, run `npm run start` to run the project locally.
+6. Visit [http://localhost:3000](http://localhost:3000)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Administrator Credential
+- Username: admin
+- password: admin
 
-### `npm run eject`
+### File Structure
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+.
+├── docs                                # postman collection file for all APIS
+├── public                              
+│   └───images                          # all images needed in the project
+├── screenshots                         # screenshots for all pages
+├── server                              # db.json that used by json-server
+├── src
+│   ├───components                      # all reusable components
+│   │   ├───EmptyState                  # empty component handle empty status
+│   │   ├───Header                      # main header for all pages
+│   │   └───Popup                       # popup component for add/edit forms
+│   ├───context                         # for storing the logged user data
+│   ├───data                            # data layer that consumingthe APIS
+│   ├───helpers                         # contains a usefull and reusable functions
+│   ├───interfaces                      # interfaces for typescript
+│   ├───pages
+│   │   ├───404                         # Not found page
+│   │   ├───EditingPage                 # the Admin page that list menu catgories and items and 
+│   │   │   │                             can add/edit/update/delete categories and items.
+│   │   │   └───components
+│   │   │       ├───AddCategory         # componet for add category
+│   │   │       ├───AddCategoryItem     # componet for add category item
+│   │   │       ├───EditCategory        # componet for edit category
+│   │   │       ├───EditCategoryItem    # componet for edit category item
+│   │   │       ├───ModifyingMenu       # listing all category items
+│   │   │       └───ModifyingSideBar    # listing all categories
+│   │   ├───LoginPage                   # login page for admis to can modify categories and items.
+│   │   └───RestaurantPage              # the landing page that list menu catgories and items.
+│   │       └───components
+│   │           ├───Menu                # listing all category items
+│   │           └───SideBar             # listing all categories
+│   ├───services                        # wrapper for http calls
+│   ├───styles                          # contained mixins for repeated styles
+│   ├───transformers                    # transform data from API
+│   ├───apiURLs.ts                      @ contains the URLS for APIs
+│   ├───App.tsx
+│   └───index.tsx
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Avaliable APIS
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+[Postman Collection](https://github.com/Khaled-Alaa/elmenus/blob/main/docs/elmenus-collection.postman_collection.json)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
