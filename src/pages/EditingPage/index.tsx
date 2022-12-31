@@ -5,6 +5,7 @@ import MainHeader from "../../components/Header";
 import Popup from "../../components/Popup";
 import { TCategory, TCategoryItem } from "../../interfaces";
 import {
+  deleteCategoryService,
   deleteItemService,
   getCategoriesService,
   getCategoryItemsService,
@@ -77,8 +78,17 @@ const EditingPage: FC = () => {
     console.log("edited category", category);
   };
 
+  const { mutate: deleteCategory } = useMutation<
+    unknown,
+    unknown,
+    { categoryId: number }
+  >(({ categoryId: idOfCategory }) => deleteCategoryService(idOfCategory));
+
   const handleDeleteCategory = (category: TCategory) => {
     console.log("deleted category", category);
+    deleteCategory({
+      categoryId: category.id,
+    });
   };
 
   ////////////////////////////////////////////////////////////////

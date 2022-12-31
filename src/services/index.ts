@@ -1,4 +1,5 @@
 import {
+  deleteCategoryData,
   deleteItemData,
   getCategoriesData,
   getCategoryItemsData,
@@ -91,6 +92,15 @@ export const postNewItemService = async ({
 export const deleteItemService = async (itemId: number) => {
   try {
     const response = await deleteItemData(itemId);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteCategoryService = async (categoryId: number) => {
+  try {
+    const response = await deleteCategoryData(categoryId);
     return response.data;
   } catch (error) {
     throw error;

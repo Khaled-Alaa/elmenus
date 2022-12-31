@@ -23,11 +23,6 @@
       "id": 21281,
       "name": "Salads",
       "description": ""
-    },
-    {
-      "name": "Beverages",
-      "description": "",
-      "id": 80878
     }
   ],
   "items": [
@@ -118,14 +113,6 @@
       "description": "Rocket leaves, fresh mushrooms, Parmesan cheese, Balsamic dressing",
       "price": 34.834,
       "categoryId": 21281
-    },
-    {
-      "image": "https://i.ibb.co/mXhgNPp/dd9dc9d83423bc037b511d73b29e6b80.jpg",
-      "name": "dd",
-      "price": "dd",
-      "description": "dd",
-      "categoryId": 80878,
-      "id": 655885
     }
   ]
 }

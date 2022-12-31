@@ -58,3 +58,7 @@ export const postNewItemData = ({
 export const deleteItemData = (itemId: number): Promise<AxiosResponse> => {
   return httpClient.delete<TCategoryItem>(urls.deleteItem(itemId));
 };
+
+export const deleteCategoryData = (categoryId: number): Promise<AxiosResponse> => {
+  return httpClient.delete<TCategoryItem>(urls.deleteCategory(categoryId));
+};
