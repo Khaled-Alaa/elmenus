@@ -1,6 +1,8 @@
 import React, { useState, FC, BaseSyntheticEvent, useEffect } from "react";
 import { useMutation } from "react-query";
 import { Button, Form, Header, Icon, Modal, TextArea } from "semantic-ui-react";
+import { toast } from "react-toastify";
+
 import Popup from "../../../../components/Popup";
 import { TCategory } from "../../../../interfaces";
 import { putCategoryService } from "../../../../services";
@@ -54,9 +56,11 @@ const EditCategory: FC<{
     {
       onSuccess: (data: TCategory) => {
         actions(data);
+        toast.success("Category updated successfully");
       },
       onError: (error) => {
-        alert(error);
+        console.error(error);
+        toast.error("Can't update category");
       },
     }
   );

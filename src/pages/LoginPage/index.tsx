@@ -9,6 +9,8 @@ import {
   Grid,
   Image,
 } from "semantic-ui-react";
+import { toast } from "react-toastify";
+
 import { UserContext } from "../../context/userContext";
 import { getUserByNameAndPasswordService } from "../../services";
 import MainHeader from "../../components/Header";
@@ -38,10 +40,11 @@ const LoginPage: FC = () => {
         userContext.setUser(loggedUsersData[0]);
         navigate("/Edit");
       } else {
-        alert("user not found");
+        toast.error("User not found");
       }
     } catch (error) {
-      alert(error);
+      console.error(error);
+      toast.error("User not found");
     }
     setIsLoading(false);
     setIsSubmitting(false);

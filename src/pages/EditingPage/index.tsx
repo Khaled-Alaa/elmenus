@@ -8,6 +8,8 @@ import {
   Container,
   Confirm,
 } from "semantic-ui-react";
+import { toast } from "react-toastify";
+
 import EmptyState from "../../components/EmptyState";
 import MainHeader from "../../components/Header";
 import Popup from "../../components/Popup";
@@ -62,7 +64,9 @@ const EditingPage: FC = () => {
       onSuccess: (data) => {
         setCategories(data);
       },
-      onError: (error: Error) => alert(error.message),
+      onError: (error: Error) => {
+        toast.error("Can't get categories");
+      },
     }
   );
 
@@ -77,7 +81,6 @@ const EditingPage: FC = () => {
   };
 
   const handleAddCategory = () => {
-    console.log("add category");
     setAddCategoryPopupOpen(true);
   };
 
@@ -108,8 +111,6 @@ const EditingPage: FC = () => {
   };
 
   const handleEditCategory = (category: TCategory) => {
-    // console.log("edited category", category);
-    console.log("edited item", category);
     setEditCategoryPopupOpen(true);
     setEditCategory(category);
     setEditCategoryFlow(true);
@@ -119,7 +120,7 @@ const EditingPage: FC = () => {
     unknown,
     unknown,
     { categoryId: number }
-  >(({ categoryId: idOfCategory }) => deleteCategoryService(idOfCategory), {
+  >(({ categoryId }) => deleteCategoryService(categoryId), {
     onSuccess: (_, variables) => {
       const deletedCategoryIndex = categories.findIndex(
         (category) => category.id === variables.categoryId
@@ -127,6 +128,11 @@ const EditingPage: FC = () => {
       const cloneCategories = [...categories];
       cloneCategories.splice(deletedCategoryIndex, 1);
       setCategories(cloneCategories);
+      toast.success("Category deleted successfully");
+    },
+    onError: (error) => {
+      console.error(error);
+      toast.error("Can't delete category");
     },
   });
   //
@@ -139,12 +145,10 @@ const EditingPage: FC = () => {
     useState<boolean>(false);
 
   const handleDeleteCategory = (category: TCategory) => {
-    console.log("edited item", category);
     setDeleteCategoryPopupOpen(true);
     setDeleteCategory(category);
   };
   const handleDeleteExistCategory = (category: TCategory) => {
-    console.log("deleted category", category);
     mutatedeleteCategory({
       categoryId: category.id,
     });
@@ -152,7 +156,7 @@ const EditingPage: FC = () => {
   };
 
   ////////////////////////////////////////////////////////////////
-  const { data: categoryItemsData } = useQuery(
+  useQuery(
     ["categoryItems", selectedCategory.id],
     () => getCategoryItemsService(selectedCategory.id),
     {
@@ -160,17 +164,17 @@ const EditingPage: FC = () => {
       onSuccess: (data) => {
         setCategoryItems(data);
       },
-      onError: (error: Error) => alert(error.message),
+      onError: (error: Error) => {
+        toast.error("Can't category items");
+      },
     }
   );
 
   const handleAddItem = (categoryId: number) => {
-    console.log("add item in ", categoryId);
     setPopupOpen(true);
   };
 
   const handleAddNewItem = (categoryItem: TCategoryItem) => {
-    debugger;
     setCategoryItems([...categoryItems, categoryItem]);
   };
 
@@ -195,7 +199,6 @@ const EditingPage: FC = () => {
   const [isEditItemPopupOpen, setEditItemPopupOpen] = useState<boolean>(false);
 
   const handleEditItem = (item: TCategoryItem) => {
-    console.log("edited item", item);
     setEditItemPopupOpen(true);
 
     setEditItem(item);
@@ -212,6 +215,11 @@ const EditingPage: FC = () => {
         const cloneCategoryItems = [...categoryItems];
         cloneCategoryItems.splice(deletedItemIndex, 1);
         setCategoryItems(cloneCategoryItems);
+        toast.success("Item deleted successfully");
+      },
+      onError: (error) => {
+        console.error(error);
+        toast.error("Can't delete item");
       },
     }
   );
@@ -230,13 +238,11 @@ const EditingPage: FC = () => {
     useState<boolean>(false);
 
   const handleDeleteItem = (item: TCategoryItem) => {
-    console.log("edited item", item);
     setDeleteItemPopupOpen(true);
     setDeleteItem(item);
   };
 
   const handleDeleteExistItem = (item: TCategoryItem) => {
-    debugger;
     mutate({
       itemId: item.id,
     });

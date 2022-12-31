@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import { useQuery } from "react-query";
+import { toast } from "react-toastify";
 import { Container, Grid, Header, Item, Segment } from "semantic-ui-react";
 import EmptyState from "../../components/EmptyState";
 import MainHeader from "../../components/Header";
@@ -20,7 +21,10 @@ const RestaurantPage: FC = () => {
     getCategoriesService,
     {
       retry: 0,
-      onError: (error: Error) => alert(error.message),
+      onError: (error) => {
+        console.error(error);
+        toast.error("Can't get categories");
+      },
     }
   );
 
@@ -39,7 +43,10 @@ const RestaurantPage: FC = () => {
     () => getCategoryItemsService(selectedCategory.id),
     {
       retry: 0,
-      onError: (error: Error) => alert(error.message),
+      onError: (error) => {
+        console.error(error);
+        toast.error("Can't get category items");
+      },
     }
   );
 

@@ -1,6 +1,8 @@
 import React, { useState, FC, BaseSyntheticEvent } from "react";
 import { useMutation } from "react-query";
 import { Button, Form, Header, Icon, Modal, TextArea } from "semantic-ui-react";
+import { toast } from "react-toastify";
+
 import { TCategory, TCategoryItem } from "../../../../interfaces";
 import { postNewItemService } from "../../../../services";
 import "./styles.scss";
@@ -44,11 +46,12 @@ const AddCategoryItem: FC<{
       }),
     {
       onSuccess: (data: TCategoryItem) => {
-        debugger;
         actions(data);
+        toast.success("Item added successfully");
       },
       onError: (error) => {
-        alert(error);
+        console.error(error);
+        toast.error("Can't add item");
       },
     }
   );

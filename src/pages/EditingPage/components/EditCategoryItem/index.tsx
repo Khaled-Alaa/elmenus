@@ -1,6 +1,8 @@
 import React, { useState, FC, useEffect, BaseSyntheticEvent } from "react";
 import { useMutation } from "react-query";
+import { toast } from "react-toastify";
 import { Button, Form, Header, Icon, Modal, TextArea } from "semantic-ui-react";
+
 import { TCategory, TCategoryItem } from "../../../../interfaces";
 import { putItemService } from "../../../../services";
 import "./styles.scss";
@@ -29,7 +31,6 @@ const EditCategoryItem: FC<{
   });
 
   useEffect(() => {
-    debugger;
     if (itemData && itemData.id !== 0) {
       setEditItemData(itemData);
     }
@@ -66,9 +67,11 @@ const EditCategoryItem: FC<{
     {
       onSuccess: (data: TCategoryItem) => {
         actions(data);
+        toast.success("Item updated successfully");
       },
       onError: (error) => {
-        alert(error);
+        console.error(error);
+        toast.error("Can't update item");
       },
     }
   );
@@ -128,9 +131,7 @@ const EditCategoryItem: FC<{
             value={editItemData.description}
             onChange={handleChange}
           />
-          <div
-            className="edit-category-item-form__actions-container"
-          >
+          <div className="edit-category-item-form__actions-container">
             <Button
               type="button"
               color="red"

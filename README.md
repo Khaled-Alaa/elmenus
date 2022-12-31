@@ -27,6 +27,7 @@ User can just view the menu page.
 - Axios
 - react-query
 - react-semantic-ui
+- react-toastify
 
 ## Development
 
@@ -78,8 +79,8 @@ Administrator Credential
 │   │           └───SideBar             # listing all categories
 │   ├───services                        # wrapper for http calls
 │   ├───styles                          # contained mixins for repeated styles
-│   ├───transformers                    # transform data from API
-│   ├───apiURLs.ts                      @ contains the URLS for APIs
+│   ├───transformers                    # transform data shape
+│   ├───apiURLs.ts                      # contains the URLS for APIs
 │   ├───App.tsx
 │   └───index.tsx
 ```

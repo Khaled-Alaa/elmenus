@@ -1,11 +1,13 @@
+import { useContext, useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router";
+import { ToastContainer } from "react-toastify";
 import RestaurantPage from "./pages/RestaurantPage";
 import LoginPage from "./pages/LoginPage";
 import EditingPage from "./pages/EditingPage";
 import NotFound from "./pages/404";
 import { UserContext } from "./context/userContext";
-import { useContext, useEffect, useState } from "react";
 import { Role } from "./interfaces";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const userContext = useContext(UserContext);
@@ -37,6 +39,7 @@ function App() {
         />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <ToastContainer />
     </UserContext.Provider>
   );
 }
