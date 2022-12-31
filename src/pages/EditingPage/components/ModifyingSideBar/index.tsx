@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { BaseSyntheticEvent, FC } from "react";
 import { Icon, Menu } from "semantic-ui-react";
 import { TCategory } from "../../../../interfaces";
 
@@ -42,7 +42,10 @@ const ModifyingSideBar: FC<{
           <label>
             <Icon
               name="pencil alternate"
-              onClick={() => getEditedCategory(category)}
+              onClick={(e: BaseSyntheticEvent) => {
+                getEditedCategory(category);
+                e.stopPropagation();
+              }}
               circular
               inverted
               color="blue"
@@ -50,7 +53,10 @@ const ModifyingSideBar: FC<{
             />
             <Icon
               name="trash alternate outline"
-              onClick={() => getDeletedCategory(category)}
+              onClick={(e: BaseSyntheticEvent) => {
+                getDeletedCategory(category);
+                e.stopPropagation();
+              }}
               circular
               inverted
               color="red"

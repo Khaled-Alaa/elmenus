@@ -84,7 +84,6 @@ const EditCategory: FC<{
     <Popup isOpen={isOpen} onTogglePopup={onTogglePopup}>
       <Header content="Add New Category" />
       <Modal.Content>
-        7abn yellow
         <Form size="large" onSubmit={handleSubmit}>
           <Form.Input
             required

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { BaseSyntheticEvent, FC } from "react";
 import { Icon, Segment } from "semantic-ui-react";
 import { TCategoryItem } from "../../../../interfaces";
 import MenuItem from "../../../RestaurantPage/components/Menu";
@@ -19,7 +19,10 @@ const ModifyingMenu: FC<{
       <div style={{ display: "flex", justifyContent: "end" }}>
         <Icon
           name="pencil alternate"
-          onClick={() => getEditedItem(data)}
+          onClick={(e: BaseSyntheticEvent) => {
+            getEditedItem(data);
+            e.stopPropagation();
+          }}
           circular
           inverted
           color="blue"
@@ -27,7 +30,10 @@ const ModifyingMenu: FC<{
         />
         <Icon
           name="trash alternate outline"
-          onClick={() => getDeletedCategory(data)}
+          onClick={(e: BaseSyntheticEvent) => {
+            getDeletedCategory(data);
+            e.stopPropagation();
+          }}
           circular
           inverted
           color="red"

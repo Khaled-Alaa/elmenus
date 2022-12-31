@@ -1,10 +1,10 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { Grid, Item, Header, Icon, Container } from "semantic-ui-react";
 import EmptyState from "../../components/EmptyState";
 import MainHeader from "../../components/Header";
 import Popup from "../../components/Popup";
-import { TCategory, TCategoryItem } from "../../interfaces";
+import {  TCategory, TCategoryItem } from "../../interfaces";
 import {
   deleteCategoryService,
   deleteItemService,
