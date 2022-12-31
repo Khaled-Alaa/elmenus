@@ -21,27 +21,26 @@ const AddCategory: FC<{
     TCategory,
     unknown,
     { categoryName: string; categoryDescription: string }
-  >(({ categoryName: name, categoryDescription: description }) =>
-    postNewCategoryService({
-      categoryName: name,
-      categoryDescription: description,
-    })
+  >(
+    ({ categoryName: name, categoryDescription: description }) =>
+      postNewCategoryService({
+        categoryName: name,
+        categoryDescription: description,
+      }),
+    {
+      onSuccess: (data: TCategory) => {
+        actions(data);
+      },
+    }
   );
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
     setIsSubmitting(true);
-    mutate(
-      {
-        categoryName: e.target.categoryName.value,
-        categoryDescription: e.target.categoryDescription.value || "",
-      },
-      {
-        onSuccess: (data: TCategory) => {
-          actions(data);
-        },
-      }
-    );
+    mutate({
+      categoryName: e.target.categoryName.value,
+      categoryDescription: e.target.categoryDescription.value || "",
+    });
 
     onTogglePopup(false);
     setIsSubmitting(false);

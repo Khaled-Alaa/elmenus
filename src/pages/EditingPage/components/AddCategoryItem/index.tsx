@@ -40,31 +40,29 @@ const AddCategoryItem: FC<{
         itemPrice: price,
         itemDescription: description,
         itemCategory: categoryId,
-      })
+      }),
+    {
+      onSuccess: (data: TCategoryItem) => {
+        debugger;
+        actions(data);
+      },
+      onError: (error) => {
+        alert(error);
+      },
+    }
   );
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
     setIsSubmitting(true);
-    mutate(
-      {
-        itemImage:
-          "https://i.ibb.co/mXhgNPp/dd9dc9d83423bc037b511d73b29e6b80.jpg",
-        itemName: e.target.itemName.value,
-        itemPrice: e.target.itemPrice.value,
-        itemDescription: e.target.itemDescription.value,
-        itemCategory: itemCategory.id,
-      },
-      {
-        onSuccess: (data: TCategoryItem) => {
-          debugger;
-          actions(data);
-        },
-        onError: (error) => {
-          alert(error);
-        },
-      }
-    );
+    mutate({
+      itemImage:
+        "https://i.ibb.co/mXhgNPp/dd9dc9d83423bc037b511d73b29e6b80.jpg",
+      itemName: e.target.itemName.value,
+      itemPrice: e.target.itemPrice.value,
+      itemDescription: e.target.itemDescription.value,
+      itemCategory: itemCategory.id,
+    });
 
     onTogglePopup(false);
     setIsSubmitting(false);
