@@ -17,4 +17,7 @@ export const urls = {
     `http://localhost:8000/categories/${categoryId}`,
 
   updateItem: (itemId: number) => `http://localhost:8000/items/${itemId}`,
+
+  updateCategory: (categoryId: number) =>
+    `http://localhost:8000/categories/${categoryId}`,
 };

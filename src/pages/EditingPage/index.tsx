@@ -12,6 +12,7 @@ import {
 } from "../../services";
 import AddCategory from "./components/AddCategory";
 import AddCategoryItem from "./components/AddCategoryItem";
+import EditCategory from "./components/EditCategory";
 import EditCategoryItem from "./components/EditCategoryItem";
 import ModifyingMenu from "./components/ModifyingMenu";
 import ModifyingSideBar from "./components/ModifyingSideBar";
@@ -75,8 +76,34 @@ const EditingPage: FC = () => {
     setCategories([...categories, category]);
   };
 
+  const [editCategory, setEditCategory] = useState<TCategory>({
+    id: 0,
+    name: "",
+    description: "",
+  });
+  const [editCategoryFlow, setEditCategoryFlow] = useState<boolean>(false);
+  const [isEditCategoryPopupOpen, setEditCategoryPopupOpen] =
+    useState<boolean>(false);
+
+  const handleEditCategoryPopup = (isOpen: boolean) => {
+    setEditCategoryPopupOpen(isOpen);
+  };
+
+  const handleEditExistCategory = (category: TCategory) => {
+    const cloneCategory = [...categories];
+    const editedCategoryIndex = categories.findIndex(
+      (oldCategory) => oldCategory.id === category.id
+    );
+    cloneCategory[editedCategoryIndex] = category;
+    setCategories(cloneCategory);
+  };
+
   const handleEditCategory = (category: TCategory) => {
-    console.log("edited category", category);
+    // console.log("edited category", category);
+    console.log("edited item", category);
+    setEditCategoryPopupOpen(true);
+    setEditCategory(category);
+    setEditCategoryFlow(true);
   };
 
   const { mutate: deleteCategory } = useMutation<
@@ -129,7 +156,7 @@ const EditingPage: FC = () => {
     const editedItemIndex = categoryItems.findIndex(
       (oldCategoryItem) => oldCategoryItem.id === categoryItem.id
     );
-    cloneCategoryItems[editedItemIndex]=categoryItem
+    cloneCategoryItems[editedItemIndex] = categoryItem;
     setCategoryItems(cloneCategoryItems);
   };
 
@@ -180,7 +207,7 @@ const EditingPage: FC = () => {
   const handlePopup = (isOpen: boolean) => {
     setPopupOpen(isOpen);
   };
-  
+
   const handleEditItemPopup = (isOpen: boolean) => {
     setEditItemPopupOpen(isOpen);
   };
@@ -250,6 +277,12 @@ const EditingPage: FC = () => {
           isOpen={isAddCategoryPopupOpen}
           onTogglePopup={handleAddCategoryPopup}
           actions={handleAddNewCategory}
+        />
+        <EditCategory
+          isOpen={isEditCategoryPopupOpen}
+          onTogglePopup={handleEditCategoryPopup}
+          actions={handleEditExistCategory}
+          categoryData={editCategory}
         />
         <Popup isOpen={isPopupOpen} onTogglePopup={handlePopup}>
           {openAddItemFlow ? (

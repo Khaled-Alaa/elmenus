@@ -28,6 +28,7 @@ const EditCategoryItem: FC<{
   });
 
   useEffect(() => {
+    debugger;
     if (itemData && itemData.id !== 0) {
       setEditItemData(itemData);
     }

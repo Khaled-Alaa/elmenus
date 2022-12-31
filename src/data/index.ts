@@ -88,3 +88,19 @@ export const putItemData = ({
     categoryId: itemCategory,
   });
 };
+
+export const putCategoryData = ({
+  categoryId,
+  categoryName,
+  categoryDescription,
+}: {
+  categoryId: number;
+  categoryName: string;
+  categoryDescription: string;
+}): Promise<AxiosResponse<TCategory>> => {
+  return httpClient.put<TCategory>(urls.updateCategory(categoryId), {
+    id: categoryId,
+    name: categoryName,
+    description: categoryDescription,
+  });
+};

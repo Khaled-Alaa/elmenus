@@ -6,6 +6,7 @@ import {
   getLoggedUserData,
   postNewCategoryData,
   postNewItemData,
+  putCategoryData,
   putItemData,
 } from "../data";
 import {
@@ -131,6 +132,27 @@ export const putItemService = async ({
       itemPrice,
       itemDescription,
       itemCategory,
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const putCategoryService = async ({
+  categoryId,
+  categoryName,
+  categoryDescription,
+}: {
+  categoryId: number;
+  categoryName: string;
+  categoryDescription: string;
+}) => {
+  try {
+    const response = await putCategoryData({
+      categoryId,
+      categoryName,
+      categoryDescription,
     });
     return response.data;
   } catch (error) {
