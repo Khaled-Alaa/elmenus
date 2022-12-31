@@ -6,13 +6,13 @@ import MenuItem from "../../../RestaurantPage/components/Menu";
 const ModifyingMenu: FC<{
   data: TCategoryItem;
   getEditedItem: (item: TCategoryItem) => void;
-  getDeletedCategory: (item: TCategoryItem) => void;
+  getDeletedItem: (item: TCategoryItem) => void;
 }> = (props: {
   data: TCategoryItem;
   getEditedItem: (item: TCategoryItem) => void;
-  getDeletedCategory: (item: TCategoryItem) => void;
+  getDeletedItem: (item: TCategoryItem) => void;
 }) => {
-  const { data, getEditedItem, getDeletedCategory } = props;
+  const { data, getEditedItem, getDeletedItem } = props;
 
   return (
     <Segment>
@@ -31,7 +31,7 @@ const ModifyingMenu: FC<{
         <Icon
           name="trash alternate outline"
           onClick={(e: BaseSyntheticEvent) => {
-            getDeletedCategory(data);
+            getDeletedItem(data);
             e.stopPropagation();
           }}
           circular

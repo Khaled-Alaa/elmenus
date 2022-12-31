@@ -5,7 +5,7 @@ import EditingPage from "./pages/EditingPage";
 import NotFound from "./pages/404";
 import "./App.css";
 import { UserContext } from "./context/userContext";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Role } from "./interfaces";
 
 function App() {
@@ -17,6 +17,13 @@ function App() {
     password: "",
     role: Role.USER,
   });
+
+  useEffect(() => {
+    if (userContext.user.role === Role.ADMIN) {
+      setUser(userContext.user);
+    }
+  }, [userContext]);
+
   const value = { user, setUser };
   return (
     <UserContext.Provider value={value}>
@@ -26,11 +33,7 @@ function App() {
         <Route
           path="/Edit"
           element={
-            userContext.user.role === Role.ADMIN ? (
-              <EditingPage />
-            ) : (
-              <Navigate replace to={"/"} />
-            )
+            user.role === Role.ADMIN ? <EditingPage /> : <Navigate to={"/"} />
           }
         />
         <Route path="*" element={<NotFound />} />

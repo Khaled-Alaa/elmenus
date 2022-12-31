@@ -1,10 +1,17 @@
-import { FC, useContext, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useMutation, useQuery } from "react-query";
-import { Grid, Item, Header, Icon, Container } from "semantic-ui-react";
+import {
+  Grid,
+  Item,
+  Header,
+  Icon,
+  Container,
+  Confirm,
+} from "semantic-ui-react";
 import EmptyState from "../../components/EmptyState";
 import MainHeader from "../../components/Header";
 import Popup from "../../components/Popup";
-import {  TCategory, TCategoryItem } from "../../interfaces";
+import { TCategory, TCategoryItem } from "../../interfaces";
 import {
   deleteCategoryService,
   deleteItemService,
@@ -107,7 +114,7 @@ const EditingPage: FC = () => {
     setEditCategoryFlow(true);
   };
 
-  const { mutate: deleteCategory } = useMutation<
+  const { mutate: mutatedeleteCategory } = useMutation<
     unknown,
     unknown,
     { categoryId: number }
@@ -121,12 +128,26 @@ const EditingPage: FC = () => {
       setCategories(cloneCategories);
     },
   });
+  //
+  const [deleteCategory, setDeleteCategory] = useState<TCategory>({
+    id: 0,
+    name: "",
+    description: "",
+  });
+  const [isDeleteCategoryPopupOpen, setDeleteCategoryPopupOpen] =
+    useState<boolean>(false);
 
   const handleDeleteCategory = (category: TCategory) => {
+    console.log("edited item", category);
+    setDeleteCategoryPopupOpen(true);
+    setDeleteCategory(category);
+  };
+  const handleDeleteExistCategory = (category: TCategory) => {
     console.log("deleted category", category);
-    deleteCategory({
+    mutatedeleteCategory({
       categoryId: category.id,
     });
+    setDeleteCategoryPopupOpen(false);
   };
 
   ////////////////////////////////////////////////////////////////
@@ -194,11 +215,31 @@ const EditingPage: FC = () => {
     }
   );
 
+  //
+
+  const [deleteItem, setDeleteItem] = useState<TCategoryItem>({
+    image: "",
+    id: 0,
+    name: "",
+    description: "",
+    price: 0,
+    categoryId: 0,
+  });
+  const [isDeleteItemPopupOpen, setDeleteItemPopupOpen] =
+    useState<boolean>(false);
+
   const handleDeleteItem = (item: TCategoryItem) => {
-    console.log("deleted item", item);
+    console.log("edited item", item);
+    setDeleteItemPopupOpen(true);
+    setDeleteItem(item);
+  };
+
+  const handleDeleteExistItem = (item: TCategoryItem) => {
+    debugger;
     mutate({
       itemId: item.id,
     });
+    setDeleteItemPopupOpen(false);
   };
 
   const handleAddCategoryPopup = (isOpen: boolean) => {
@@ -222,13 +263,11 @@ const EditingPage: FC = () => {
               key={item.id}
               data={item}
               getEditedItem={handleEditItem}
-              getDeletedCategory={handleDeleteItem}
+              getDeletedItem={handleDeleteItem}
             />
           ))}
         </Item.Group>
       );
-      // } else {
-      //   <EmptyState />;
     }
   };
   return (
@@ -324,6 +363,20 @@ const EditingPage: FC = () => {
             <></>
           )}
         </Popup>
+        <Confirm
+          open={isDeleteItemPopupOpen}
+          header={`You are going to delete ${deleteItem.name} item`}
+          onCancel={() => setDeleteItemPopupOpen(false)}
+          onConfirm={() => handleDeleteExistItem(deleteItem)}
+          size="tiny"
+        />
+        <Confirm
+          open={isDeleteCategoryPopupOpen}
+          header={`You are going to delete ${deleteCategory.name} category`}
+          onCancel={() => setDeleteCategoryPopupOpen(false)}
+          onConfirm={() => handleDeleteExistCategory(deleteCategory)}
+          size="tiny"
+        />
       </Container>
     </>
   );
