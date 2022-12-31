@@ -20,7 +20,7 @@ export const getLoggedUserData = (
   return httpClient.get<TUser[]>(urls.user(name, password));
 };
 
-export const postNewCategory = ({
+export const postNewCategoryData = ({
   categoryName,
   categoryDescription,
 }: {
@@ -33,7 +33,7 @@ export const postNewCategory = ({
   });
 };
 
-export const postNewItem = ({
+export const postNewItemData = ({
   itemImage,
   itemName,
   itemPrice,
@@ -53,4 +53,8 @@ export const postNewItem = ({
     description: itemDescription,
     categoryId: itemCategory,
   });
+};
+
+export const deleteItemData = (itemId: number): Promise<AxiosResponse> => {
+  return httpClient.delete<TCategoryItem>(urls.deleteItem(itemId));
 };

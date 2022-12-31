@@ -23,6 +23,7 @@ const ModifyingMenu: FC<{
           circular
           inverted
           color="blue"
+          link
         />
         <Icon
           name="trash alternate outline"
@@ -30,6 +31,7 @@ const ModifyingMenu: FC<{
           circular
           inverted
           color="red"
+          link
         />
       </div>
       <MenuItem key={data.id} data={data} />

@@ -1,10 +1,14 @@
 import { FC, useEffect, useState } from "react";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { Grid, Item, Header, Icon, Container } from "semantic-ui-react";
 import MainHeader from "../../components/Header";
 import Popup from "../../components/Popup";
 import { TCategory, TCategoryItem } from "../../interfaces";
-import { getCategoriesService, getCategoryItemsService } from "../../services";
+import {
+  deleteItemService,
+  getCategoriesService,
+  getCategoryItemsService,
+} from "../../services";
 import AddCategory from "./components/AddCategory";
 import AddCategoryItem from "./components/AddCategoryItem";
 import ModifyingMenu from "./components/ModifyingMenu";
@@ -103,8 +107,15 @@ const EditingPage: FC = () => {
     console.log("edited item", item);
   };
 
+  const { mutate } = useMutation<unknown, unknown, { itemId: number }>(
+    ({ itemId: categoryitemId }) => deleteItemService(categoryitemId)
+  );
+
   const handleDeleteItem = (item: TCategoryItem) => {
     console.log("deleted item", item);
+    mutate({
+      itemId: item.id,
+    });
   };
 
   const handleAddCategoryPopup = (isOpen: boolean) => {
@@ -169,7 +180,7 @@ const EditingPage: FC = () => {
                   circular
                   inverted
                   color="green"
-                  pointer
+                  link
                 />
               </div>
               {renderItems()}

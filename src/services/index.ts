@@ -1,9 +1,10 @@
 import {
+  deleteItemData,
   getCategoriesData,
   getCategoryItemsData,
   getLoggedUserData,
-  postNewCategory,
-  postNewItem,
+  postNewCategoryData,
+  postNewItemData,
 } from "../data";
 import {
   categoryItemsTransformer,
@@ -50,7 +51,7 @@ export const postNewCategoryService = async ({
   categoryDescription: string;
 }) => {
   try {
-    const response = await postNewCategory({
+    const response = await postNewCategoryData({
       categoryName,
       categoryDescription,
     });
@@ -74,13 +75,22 @@ export const postNewItemService = async ({
   itemCategory: number;
 }) => {
   try {
-    const response = await postNewItem({
+    const response = await postNewItemData({
       itemImage,
       itemName,
       itemPrice,
       itemDescription,
       itemCategory,
     });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteItemService = async (itemId: number) => {
+  try {
+    const response = await deleteItemData(itemId);
     return response.data;
   } catch (error) {
     throw error;

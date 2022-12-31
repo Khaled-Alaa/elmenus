@@ -47,6 +47,7 @@ const ModifyingSideBar: FC<{
                 circular
                 inverted
                 color="blue"
+                link
               />
               <Icon
                 name="trash alternate outline"
@@ -54,6 +55,7 @@ const ModifyingSideBar: FC<{
                 circular
                 inverted
                 color="red"
+                link
               />
             </label>
           </div>

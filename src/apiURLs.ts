@@ -10,4 +10,6 @@ export const urls = {
   addCategory: `http://localhost:8000/categories`,
 
   addItem: `http://localhost:8000/items`,
+
+  deleteItem: (itemId: number) =>`http://localhost:8000/items/${itemId}`,
 };
