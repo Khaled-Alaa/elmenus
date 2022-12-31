@@ -38,7 +38,7 @@ const LoginPage: FC = () => {
         userContext.setUser(loggedUsersData[0]);
         navigate("/Edit");
       } else {
-        alert("user nof found");
+        alert("user not found");
       }
     } catch (error) {
       alert(error);

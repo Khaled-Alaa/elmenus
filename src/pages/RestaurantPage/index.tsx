@@ -30,7 +30,6 @@ const RestaurantPage: FC = () => {
     }
   }, [categoriesData]);
 
-  const categries = categoriesData || [];
   const handleSelectedCategory = (category: TCategory) => {
     setSelectedCategory(category);
   };
@@ -67,7 +66,7 @@ const RestaurantPage: FC = () => {
               <Header as={"h2"}>Menu Categories</Header>
               {categoriesData && categoriesData.length > 0 ? (
                 <SideBar
-                  data={categries}
+                  data={categoriesData || []}
                   selectedCategory={selectedCategory}
                   getSelectedCategory={handleSelectedCategory}
                 />

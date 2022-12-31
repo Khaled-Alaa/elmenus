@@ -3,7 +3,6 @@ import RestaurantPage from "./pages/RestaurantPage";
 import LoginPage from "./pages/LoginPage";
 import EditingPage from "./pages/EditingPage";
 import NotFound from "./pages/404";
-import "./App.css";
 import { UserContext } from "./context/userContext";
 import { useContext, useEffect, useState } from "react";
 import { Role } from "./interfaces";

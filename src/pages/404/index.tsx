@@ -8,7 +8,7 @@ const NotFound: FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <>
       <MainHeader />
       <div className="not-found-404-container">
         <Image
@@ -23,7 +23,7 @@ const NotFound: FC = () => {
           Go Home
         </Button>
       </div>
-    </div>
+    </>
   );
 };
 
