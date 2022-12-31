@@ -82,7 +82,16 @@ const EditingPage: FC = () => {
     unknown,
     unknown,
     { categoryId: number }
-  >(({ categoryId: idOfCategory }) => deleteCategoryService(idOfCategory));
+  >(({ categoryId: idOfCategory }) => deleteCategoryService(idOfCategory), {
+    onSuccess: (_, variables) => {
+      const deletedCategoryIndex = categories.findIndex(
+        (category) => category.id === variables.categoryId
+      );
+      const cloneCategories = [...categories];
+      cloneCategories.splice(deletedCategoryIndex, 1);
+      setCategories(cloneCategories);
+    },
+  });
 
   const handleDeleteCategory = (category: TCategory) => {
     console.log("deleted category", category);
@@ -118,7 +127,17 @@ const EditingPage: FC = () => {
   };
 
   const { mutate } = useMutation<unknown, unknown, { itemId: number }>(
-    ({ itemId: categoryitemId }) => deleteItemService(categoryitemId)
+    ({ itemId: categoryitemId }) => deleteItemService(categoryitemId),
+    {
+      onSuccess: (_, variables) => {
+        const deletedItemIndex = categoryItems.findIndex(
+          (categoryItem) => categoryItem.id === variables.itemId
+        );
+        const clonecategoryItems = [...categoryItems];
+        clonecategoryItems.splice(deletedItemIndex, 1);
+        setCategoryItems(clonecategoryItems);
+      },
+    }
   );
 
   const handleDeleteItem = (item: TCategoryItem) => {
