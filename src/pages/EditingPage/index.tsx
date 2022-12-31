@@ -13,6 +13,8 @@ import { toast } from "react-toastify";
 import EmptyState from "../../components/EmptyState";
 import MainHeader from "../../components/Header";
 import Popup from "../../components/Popup";
+import NewPopup from "../../components/NewPopup";
+
 import { TCategory, TCategoryItem } from "../../interfaces";
 import {
   deleteCategoryService,
@@ -21,9 +23,8 @@ import {
   getCategoryItemsService,
 } from "../../services";
 import AddCategory from "./components/AddCategory";
-import AddCategoryItem from "./components/AddCategoryItem";
 import EditCategory from "./components/EditCategory";
-import EditCategoryItem from "./components/EditCategoryItem";
+import AddEditItemForm from "./components/AddEditItem";
 import ModifyingMenu from "./components/ModifyingMenu";
 import ModifyingSideBar from "./components/ModifyingSideBar";
 import "./styles.scss";
@@ -53,8 +54,6 @@ const EditingPage: FC = () => {
       categoryId: 0,
     },
   ]);
-  const [isPopupOpen, setPopupOpen] = useState<boolean>(false);
-  const [openAddItemFlow, setAddItemFlow] = useState<boolean>(false);
 
   const { data: categoriesData } = useQuery(
     ["categories"],
@@ -170,9 +169,9 @@ const EditingPage: FC = () => {
     }
   );
 
-  const handleAddItem = (categoryId: number) => {
-    setPopupOpen(true);
-  };
+  // const handleAddItem = (categoryId: number) => {
+  //   setPopupOpen(true);
+  // };
 
   const handleAddNewItem = (categoryItem: TCategoryItem) => {
     setCategoryItems([...categoryItems, categoryItem]);
@@ -195,14 +194,13 @@ const EditingPage: FC = () => {
     price: 0,
     categoryId: 0,
   });
-  const [editItemFlow, setEditItemFlow] = useState<boolean>(false);
-  const [isEditItemPopupOpen, setEditItemPopupOpen] = useState<boolean>(false);
+  const [itemMode, setItemMode] = useState<string>("");
+  const [isitemPopupOpen, setItemPopupOpen] = useState<boolean>(false);
 
   const handleEditItem = (item: TCategoryItem) => {
-    setEditItemPopupOpen(true);
-
+    setItemPopupOpen(true);
     setEditItem(item);
-    setEditItemFlow(true);
+    setItemMode("edit");
   };
 
   const { mutate } = useMutation<unknown, unknown, { itemId: number }>(
@@ -223,8 +221,6 @@ const EditingPage: FC = () => {
       },
     }
   );
-
-  //
 
   const [deleteItem, setDeleteItem] = useState<TCategoryItem>({
     image: "",
@@ -253,12 +249,8 @@ const EditingPage: FC = () => {
     setAddCategoryPopupOpen(isOpen);
   };
 
-  const handlePopup = (isOpen: boolean) => {
-    setPopupOpen(isOpen);
-  };
-
-  const handleEditItemPopup = (isOpen: boolean) => {
-    setEditItemPopupOpen(isOpen);
+  const handleItemPopup = (isOpen: boolean) => {
+    setItemPopupOpen(isOpen);
   };
 
   const renderItems = () => {
@@ -317,8 +309,8 @@ const EditingPage: FC = () => {
                 <Icon
                   name="add"
                   onClick={() => {
-                    handleAddItem(selectedCategory.id);
-                    setAddItemFlow(true);
+                    setItemPopupOpen(true);
+                    setItemMode("add");
                   }}
                   circular
                   inverted
@@ -347,29 +339,25 @@ const EditingPage: FC = () => {
           actions={handleEditExistCategory}
           categoryData={editCategory}
         />
-        <Popup isOpen={isPopupOpen} onTogglePopup={handlePopup}>
-          {openAddItemFlow ? (
-            <AddCategoryItem
-              actions={handleAddNewItem}
-              onTogglePopup={handlePopup}
-              itemCategory={selectedCategory}
-            />
-          ) : (
-            <></>
-          )}
-        </Popup>
-        <Popup isOpen={isEditItemPopupOpen} onTogglePopup={handleEditItemPopup}>
-          {editItemFlow ? (
-            <EditCategoryItem
-              actions={handleEditExistItem}
-              onTogglePopup={handleEditItemPopup}
-              itemCategory={selectedCategory}
-              itemData={editItem}
-            />
-          ) : (
-            <></>
-          )}
-        </Popup>
+        <NewPopup
+          isOpen={isitemPopupOpen}
+          onTogglePopup={handleItemPopup}
+          header={
+            itemMode === "edit"
+              ? `Edit ${editItem.name} Item`
+              : "Add New Item"
+          }
+        >
+          <AddEditItemForm
+            actions={
+              itemMode === "edit" ? handleEditExistItem : handleAddNewItem
+            }
+            onTogglePopup={handleItemPopup}
+            itemCategory={selectedCategory}
+            itemData={editItem}
+            itemMode={itemMode}
+          />
+        </NewPopup>
         <Confirm
           open={isDeleteItemPopupOpen}
           header={`You are going to delete ${deleteItem.name} item`}

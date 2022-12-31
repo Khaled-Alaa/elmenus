@@ -67,9 +67,8 @@ Administrator Credential
 │   │   │   │                             can add/edit/update/delete categories and items.
 │   │   │   └───components
 │   │   │       ├───AddCategory         # componet for add category
-│   │   │       ├───AddCategoryItem     # componet for add category item
+│   │   │       ├───AddEditItem         # form for add and edit item
 │   │   │       ├───EditCategory        # componet for edit category
-│   │   │       ├───EditCategoryItem    # componet for edit category item
 │   │   │       ├───ModifyingMenu       # listing all category items
 │   │   │       └───ModifyingSideBar    # listing all categories
 │   │   ├───LoginPage                   # login page for admis to can modify categories and items.
