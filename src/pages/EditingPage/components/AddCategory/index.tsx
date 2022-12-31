@@ -1,4 +1,4 @@
-import React, { useState, FC } from "react";
+import React, { useState, FC, BaseSyntheticEvent } from "react";
 import { useMutation } from "react-query";
 import { Button, Form, Header, Icon, Modal,TextArea } from "semantic-ui-react";
 import Popup from "../../../../components/Popup";
@@ -34,7 +34,7 @@ const AddCategory: FC<{
     }
   );
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: BaseSyntheticEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     mutate({

@@ -12,6 +12,7 @@ import {
 } from "../../services";
 import AddCategory from "./components/AddCategory";
 import AddCategoryItem from "./components/AddCategoryItem";
+import EditCategoryItem from "./components/EditCategoryItem";
 import ModifyingMenu from "./components/ModifyingMenu";
 import ModifyingSideBar from "./components/ModifyingSideBar";
 
@@ -122,8 +123,33 @@ const EditingPage: FC = () => {
     debugger;
     setCategoryItems([...categoryItems, categoryItem]);
   };
+
+  const handleEditExistItem = (categoryItem: TCategoryItem) => {
+    const cloneCategoryItems = [...categoryItems];
+    const editedItemIndex = categoryItems.findIndex(
+      (oldCategoryItem) => oldCategoryItem.id === categoryItem.id
+    );
+    cloneCategoryItems[editedItemIndex]=categoryItem
+    setCategoryItems(cloneCategoryItems);
+  };
+
+  const [editItem, setEditItem] = useState<TCategoryItem>({
+    image: "",
+    id: 0,
+    name: "",
+    description: "",
+    price: 0,
+    categoryId: 0,
+  });
+  const [editItemFlow, setEditItemFlow] = useState<boolean>(false);
+  const [isEditItemPopupOpen, setEditItemPopupOpen] = useState<boolean>(false);
+
   const handleEditItem = (item: TCategoryItem) => {
     console.log("edited item", item);
+    setEditItemPopupOpen(true);
+
+    setEditItem(item);
+    setEditItemFlow(true);
   };
 
   const { mutate } = useMutation<unknown, unknown, { itemId: number }>(
@@ -133,9 +159,9 @@ const EditingPage: FC = () => {
         const deletedItemIndex = categoryItems.findIndex(
           (categoryItem) => categoryItem.id === variables.itemId
         );
-        const clonecategoryItems = [...categoryItems];
-        clonecategoryItems.splice(deletedItemIndex, 1);
-        setCategoryItems(clonecategoryItems);
+        const cloneCategoryItems = [...categoryItems];
+        cloneCategoryItems.splice(deletedItemIndex, 1);
+        setCategoryItems(cloneCategoryItems);
       },
     }
   );
@@ -153,6 +179,10 @@ const EditingPage: FC = () => {
 
   const handlePopup = (isOpen: boolean) => {
     setPopupOpen(isOpen);
+  };
+  
+  const handleEditItemPopup = (isOpen: boolean) => {
+    setEditItemPopupOpen(isOpen);
   };
 
   const renderItems = () => {
@@ -227,6 +257,18 @@ const EditingPage: FC = () => {
               actions={handleAddNewItem}
               onTogglePopup={handlePopup}
               itemCategory={selectedCategory}
+            />
+          ) : (
+            <></>
+          )}
+        </Popup>
+        <Popup isOpen={isEditItemPopupOpen} onTogglePopup={handleEditItemPopup}>
+          {editItemFlow ? (
+            <EditCategoryItem
+              actions={handleEditExistItem}
+              onTogglePopup={handleEditItemPopup}
+              itemCategory={selectedCategory}
+              itemData={editItem}
             />
           ) : (
             <></>

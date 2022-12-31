@@ -1,4 +1,4 @@
-import { useState, FC, useContext } from "react";
+import { useState, FC, useContext, BaseSyntheticEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Button,
@@ -20,7 +20,7 @@ const LoginPage: FC = () => {
   const userContext = useContext(UserContext);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: BaseSyntheticEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setIsSubmitting(true);

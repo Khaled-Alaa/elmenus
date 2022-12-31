@@ -1,25 +1,43 @@
-import React, { useState, FC, BaseSyntheticEvent } from "react";
+import React, { useState, FC, useEffect, BaseSyntheticEvent } from "react";
 import { useMutation } from "react-query";
-import { Button, Form, Header, Icon, Modal,TextArea } from "semantic-ui-react";
+import { Button, Form, Header, Icon, Modal, TextArea } from "semantic-ui-react";
 import { TCategory, TCategoryItem } from "../../../../interfaces";
-import { postNewItemService } from "../../../../services";
+import { putItemService } from "../../../../services";
 
-const AddCategoryItem: FC<{
+const EditCategoryItem: FC<{
   onTogglePopup: (isOpen: boolean) => void;
   actions: (item: TCategoryItem) => void;
   itemCategory: TCategory;
+  itemData: TCategoryItem;
 }> = (props: {
   onTogglePopup: (isOpen: boolean) => void;
   actions: (item: TCategoryItem) => void;
   itemCategory: TCategory;
+  itemData: TCategoryItem;
 }) => {
-  const { onTogglePopup, actions, itemCategory } = props;
+  const { onTogglePopup, actions, itemCategory, itemData } = props;
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [editItemData, setEditItemData] = useState<TCategoryItem>({
+    image: "",
+    id: 0,
+    name: "",
+    description: "",
+    price: 0,
+    categoryId: 0,
+  });
+
+  useEffect(() => {
+    if (itemData && itemData.id !== 0) {
+      setEditItemData(itemData);
+    }
+  }, [itemData]);
 
   const { mutate } = useMutation<
     TCategoryItem,
     unknown,
     {
+      itemId: number;
       itemImage: string;
       itemName: string;
       itemPrice: number;
@@ -28,13 +46,15 @@ const AddCategoryItem: FC<{
     }
   >(
     ({
+      itemId: id,
       itemImage: image,
       itemName: name,
       itemPrice: price,
       itemDescription: description,
       itemCategory: categoryId,
     }) =>
-      postNewItemService({
+      putItemService({
+        itemId: id,
         itemImage: image,
         itemName: name,
         itemPrice: price,
@@ -43,7 +63,6 @@ const AddCategoryItem: FC<{
       }),
     {
       onSuccess: (data: TCategoryItem) => {
-        debugger;
         actions(data);
       },
       onError: (error) => {
@@ -52,16 +71,23 @@ const AddCategoryItem: FC<{
     }
   );
 
-  const handleSubmit = (e: BaseSyntheticEvent) => {
+  const handleChange = (e: BaseSyntheticEvent) => {
+    setEditItemData({
+      ...editItemData,
+      [e.target.name]: e.target.value,
+    } as TCategoryItem);
+  };
+
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     setIsSubmitting(true);
     mutate({
-      itemImage:
-        "https://i.ibb.co/mXhgNPp/dd9dc9d83423bc037b511d73b29e6b80.jpg",
-      itemName: e.target.itemName.value,
-      itemPrice: e.target.itemPrice.value,
-      itemDescription: e.target.itemDescription.value,
-      itemCategory: itemCategory.id,
+      itemId: editItemData.id,
+      itemImage: editItemData.image,
+      itemName: editItemData.name,
+      itemPrice: editItemData.price,
+      itemDescription: editItemData.description,
+      itemCategory: editItemData.categoryId,
     });
 
     onTogglePopup(false);
@@ -70,7 +96,7 @@ const AddCategoryItem: FC<{
 
   return (
     <>
-      <Header content="Add New Category" />
+      <Header content={`Edit ${editItemData.name} Item`} />
       <Modal.Content>
         <Form size="large" onSubmit={handleSubmit}>
           <Form.Input
@@ -78,21 +104,27 @@ const AddCategoryItem: FC<{
             fluid
             label="Item Name"
             placeholder="item name"
-            name="itemName"
+            name="name"
+            value={editItemData.name}
+            onChange={handleChange}
           />
           <Form.Input
             required
             fluid
             label="Item Price"
             placeholder="item price"
-            name="itemPrice"
+            name="price"
+            value={editItemData.price}
+            onChange={handleChange}
           />
           <Form.Field
             required
             control={TextArea}
             label="Item Description"
             placeholder="Item description"
-            name="itemDescription"
+            name="description"
+            value={editItemData.description}
+            onChange={handleChange}
           />
           <div style={{ display: "flex", justifyContent: "end" }}>
             <Button
@@ -112,4 +144,4 @@ const AddCategoryItem: FC<{
   );
 };
 
-export default AddCategoryItem;
+export default EditCategoryItem;

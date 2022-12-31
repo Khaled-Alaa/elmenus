@@ -18,8 +18,11 @@ const httpClient = {
     axios.delete<T, AxiosResponse<T>>(url, config),
   put: <T>(
     url: string,
+    data: any,
+
     config?: AxiosRequestConfig
-  ): Promise<AxiosResponse<T>> => axios.put<T, AxiosResponse<T>>(url, config),
+  ): Promise<AxiosResponse<T>> =>
+    axios.put<T, AxiosResponse<T>>(url, data, config),
 };
 
 export default httpClient;

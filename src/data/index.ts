@@ -59,6 +59,32 @@ export const deleteItemData = (itemId: number): Promise<AxiosResponse> => {
   return httpClient.delete<TCategoryItem>(urls.deleteItem(itemId));
 };
 
-export const deleteCategoryData = (categoryId: number): Promise<AxiosResponse> => {
+export const deleteCategoryData = (
+  categoryId: number
+): Promise<AxiosResponse> => {
   return httpClient.delete<TCategoryItem>(urls.deleteCategory(categoryId));
+};
+
+export const putItemData = ({
+  itemId,
+  itemImage,
+  itemName,
+  itemPrice,
+  itemDescription,
+  itemCategory,
+}: {
+  itemId: number;
+  itemImage: string;
+  itemName: string;
+  itemPrice: number;
+  itemDescription: string;
+  itemCategory: number;
+}): Promise<AxiosResponse<TCategoryItem>> => {
+  return httpClient.put<TCategoryItem>(urls.updateItem(itemId), {
+    image: itemImage,
+    name: itemName,
+    price: itemPrice,
+    description: itemDescription,
+    categoryId: itemCategory,
+  });
 };
