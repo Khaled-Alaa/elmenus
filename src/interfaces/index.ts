@@ -21,5 +21,5 @@ export type TCategoryItem = {
   name: string;
   description: string;
   price: number;
-  categorId: number;
+  categoryId: number;
 };

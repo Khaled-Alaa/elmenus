@@ -32,3 +32,25 @@ export const postNewCategory = ({
     description: categoryDescription,
   });
 };
+
+export const postNewItem = ({
+  itemImage,
+  itemName,
+  itemPrice,
+  itemDescription,
+  itemCategory,
+}: {
+  itemImage: string;
+  itemName: string;
+  itemPrice: number;
+  itemDescription: string;
+  itemCategory: number;
+}): Promise<AxiosResponse<TCategoryItem>> => {
+  return httpClient.post<TCategoryItem>(urls.addItem, {
+    image: itemImage,
+    name: itemName,
+    price: itemPrice,
+    description: itemDescription,
+    categoryId: itemCategory,
+  });
+};

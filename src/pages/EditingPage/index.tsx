@@ -2,9 +2,11 @@ import { FC, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { Grid, Item, Header, Icon, Container } from "semantic-ui-react";
 import MainHeader from "../../components/Header";
+import Popup from "../../components/Popup";
 import { TCategory, TCategoryItem } from "../../interfaces";
 import { getCategoriesService, getCategoryItemsService } from "../../services";
 import AddCategory from "./components/AddCategory";
+import AddCategoryItem from "./components/AddCategoryItem";
 import ModifyingMenu from "./components/ModifyingMenu";
 import ModifyingSideBar from "./components/ModifyingSideBar";
 
@@ -14,7 +16,8 @@ const EditingPage: FC = () => {
     name: "",
     description: "",
   });
-  const [isPopupOpen, setPopupOpen] = useState<boolean>(false);
+  const [isAddCategoryPopupOpen, setAddCategoryPopupOpen] =
+    useState<boolean>(false);
   const [categories, setCategories] = useState<TCategory[]>([
     {
       id: 0,
@@ -22,11 +25,24 @@ const EditingPage: FC = () => {
       description: "",
     },
   ]);
+  const [categoryItems, setCategoryItems] = useState<TCategoryItem[]>([
+    {
+      image: "",
+      id: 0,
+      name: "",
+      description: "",
+      price: 0,
+      categoryId: 0,
+    },
+  ]);
+  const [isPopupOpen, setPopupOpen] = useState<boolean>(false);
+  const [openAddItemFlow, setAddItemFlow] = useState<boolean>(false);
+
   const { data: categoriesData } = useQuery(
     ["categories"],
     getCategoriesService,
     {
-      retry: 0,
+      retry: false,
       onSuccess: (data) => {
         setCategories(data);
       },
@@ -46,7 +62,7 @@ const EditingPage: FC = () => {
 
   const handleAddCategory = () => {
     console.log("add category");
-    setPopupOpen(true);
+    setAddCategoryPopupOpen(true);
   };
 
   const handleAddNewCategory = (category: TCategory) => {
@@ -66,15 +82,23 @@ const EditingPage: FC = () => {
     ["categoryItems", selectedCategory.id],
     () => getCategoryItemsService(selectedCategory.id),
     {
-      retry: 0,
+      retry: false,
+      onSuccess: (data) => {
+        setCategoryItems(data);
+      },
       onError: (error: Error) => alert(error.message),
     }
   );
 
   const handleAddItem = (categoryId: number) => {
     console.log("add item in ", categoryId);
+    setPopupOpen(true);
   };
 
+  const handleAddNewItem = (categoryItem: TCategoryItem) => {
+    debugger;
+    setCategoryItems([...categoryItems, categoryItem]);
+  };
   const handleEditItem = (item: TCategoryItem) => {
     console.log("edited item", item);
   };
@@ -83,14 +107,19 @@ const EditingPage: FC = () => {
     console.log("deleted item", item);
   };
 
+  const handleAddCategoryPopup = (isOpen: boolean) => {
+    setAddCategoryPopupOpen(isOpen);
+  };
+
   const handlePopup = (isOpen: boolean) => {
     setPopupOpen(isOpen);
   };
+
   const renderItems = () => {
-    if (categoryItemsData && categoryItemsData.length > 0) {
+    if (categoryItems && categoryItems.length > 0) {
       return (
         <Item.Group>
-          {categoryItemsData.map((item) => (
+          {categoryItems.map((item) => (
             <ModifyingMenu
               key={item.id}
               data={item}
@@ -133,7 +162,10 @@ const EditingPage: FC = () => {
                 <Header as={"h2"}>{selectedCategory.name} Items</Header>
                 <Icon
                   name="add"
-                  onClick={() => handleAddItem(selectedCategory.id)}
+                  onClick={() => {
+                    handleAddItem(selectedCategory.id);
+                    setAddItemFlow(true);
+                  }}
                   circular
                   inverted
                   color="green"
@@ -145,10 +177,21 @@ const EditingPage: FC = () => {
           </Grid.Row>
         </Grid>
         <AddCategory
-          isOpen={isPopupOpen}
-          onTogglePopup={handlePopup}
+          isOpen={isAddCategoryPopupOpen}
+          onTogglePopup={handleAddCategoryPopup}
           actions={handleAddNewCategory}
         />
+        <Popup isOpen={isPopupOpen} onTogglePopup={handlePopup}>
+          {openAddItemFlow ? (
+            <AddCategoryItem
+              actions={handleAddNewItem}
+              onTogglePopup={handlePopup}
+              itemCategory={selectedCategory}
+            />
+          ) : (
+            <></>
+          )}
+        </Popup>
       </Container>
     </>
   );

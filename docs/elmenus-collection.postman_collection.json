@@ -347,7 +347,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8000/api/items/?categorId=80877",
+							"raw": "http://localhost:8000/api/items/?categoryId=80877",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -360,7 +360,7 @@
 							],
 							"query": [
 								{
-									"key": "categorId",
+									"key": "categoryId",
 									"value": "80877"
 								}
 							]
@@ -381,7 +381,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"sdfdsfdsfgds\",\r\n    \"description\": \"test tetr, testt\",\r\n    \"price\": 15.99,\r\n    \"categorId\": 21281\r\n}"
+							"raw": "{\r\n    \"name\": \"sdfdsfdsfgds\",\r\n    \"description\": \"test tetr, testt\",\r\n    \"price\": 15.99,\r\n    \"categoryId\": 21281\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8000/api/items/",
@@ -433,7 +433,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Egyption Salade\",\r\n    \"description\": \"tomato, cuocumber , salt\",\r\n    \"price\": 15.99,\r\n    \"categorId\": 21281\r\n}"
+							"raw": "{\r\n    \"name\": \"Egyption Salade\",\r\n    \"description\": \"tomato, cuocumber , salt\",\r\n    \"price\": 15.99,\r\n    \"categoryId\": 21281\r\n}"
 						},
 						"url": {
 							"raw": "http://localhost:8000/api/items/655885",

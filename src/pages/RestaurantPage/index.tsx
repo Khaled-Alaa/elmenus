@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { Grid, Item } from "semantic-ui-react";
-import Header from "../../components/Header";
+import { Container, Grid, Header, Item, Segment } from "semantic-ui-react";
+import MainHeader from "../../components/Header";
 import { TCategory } from "../../interfaces";
 import { getCategoriesService, getCategoryItemsService } from "../../services";
 import MenuItem from "./components/Menu";
@@ -48,7 +48,9 @@ const RestaurantPage: FC = () => {
       return (
         <Item.Group>
           {categoryItemsData.map((item) => (
-            <MenuItem key={item.id} data={item} />
+            <Segment>
+              <MenuItem key={item.id} data={item} />
+            </Segment>
           ))}
         </Item.Group>
       );
@@ -56,19 +58,25 @@ const RestaurantPage: FC = () => {
   };
   return (
     <>
-      <Header />
-      <Grid stackable>
-        <Grid.Row>
-          <Grid.Column width={4}>
-            <SideBar
-              data={categries}
-              selectedCategory={selectedCategory}
-              getSelectedCategory={handleSelectedCategory}
-            />
-          </Grid.Column>
-          <Grid.Column width={12}>{renderItems()}</Grid.Column>
-        </Grid.Row>
-      </Grid>
+      <MainHeader />
+      <Container>
+        <Grid stackable>
+          <Grid.Row>
+            <Grid.Column width={4}>
+              <Header as={"h2"}>Menu Categories</Header>
+              <SideBar
+                data={categries}
+                selectedCategory={selectedCategory}
+                getSelectedCategory={handleSelectedCategory}
+              />
+            </Grid.Column>
+            <Grid.Column width={12}>
+              <Header as={"h2"}>{selectedCategory.name} Items</Header>
+              {renderItems()}
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Container>
     </>
   );
 };

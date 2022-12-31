@@ -25,7 +25,7 @@ const SideBar: FC<{
   };
 
   return (
-    <Menu fluid vertical tabular>
+    <Menu fluid secondary vertical>
       {renderCategories(data)}
     </Menu>
   );
