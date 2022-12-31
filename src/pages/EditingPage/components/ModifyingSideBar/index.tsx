@@ -25,7 +25,6 @@ const ModifyingSideBar: FC<{
 
   const renderCategories = (categories: TCategory[]) => {
     return categories.map((category) => (
-      <div>
         <Menu.Item
           key={category.id}
           name={category.name}
@@ -60,7 +59,6 @@ const ModifyingSideBar: FC<{
             </label>
           </div>
         </Menu.Item>
-      </div>
     ));
   };
 

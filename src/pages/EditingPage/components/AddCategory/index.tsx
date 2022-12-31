@@ -1,6 +1,6 @@
 import React, { useState, FC } from "react";
 import { useMutation } from "react-query";
-import { Button, Form, Header, Icon, Modal } from "semantic-ui-react";
+import { Button, Form, Header, Icon, Modal,TextArea } from "semantic-ui-react";
 import Popup from "../../../../components/Popup";
 import { TCategory } from "../../../../interfaces";
 import { postNewCategoryService } from "../../../../services";
@@ -59,7 +59,7 @@ const AddCategory: FC<{
             name="categoryName"
           />
           <Form.Field
-            control={"textArea"}
+            control={TextArea}
             label="Category Description"
             placeholder="category description"
             name="categoryDescription"

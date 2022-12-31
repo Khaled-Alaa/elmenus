@@ -48,8 +48,8 @@ const RestaurantPage: FC = () => {
       return (
         <Item.Group>
           {categoryItemsData.map((item) => (
-            <Segment>
-              <MenuItem key={item.id} data={item} />
+            <Segment key={item.id}>
+              <MenuItem data={item} />
             </Segment>
           ))}
         </Item.Group>

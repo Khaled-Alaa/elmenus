@@ -1,6 +1,6 @@
 import React, { useState, FC } from "react";
 import { useMutation } from "react-query";
-import { Button, Form, Header, Icon, Modal } from "semantic-ui-react";
+import { Button, Form, Header, Icon, Modal,TextArea } from "semantic-ui-react";
 import { TCategory, TCategoryItem } from "../../../../interfaces";
 import { postNewItemService } from "../../../../services";
 
@@ -89,7 +89,7 @@ const AddCategoryItem: FC<{
           />
           <Form.Field
             required
-            control={"textArea"}
+            control={TextArea}
             label="Item Description"
             placeholder="Item description"
             name="itemDescription"
