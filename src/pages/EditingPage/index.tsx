@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { Grid, Item, Header, Icon, Container } from "semantic-ui-react";
+import EmptyState from "../../components/EmptyState";
 import MainHeader from "../../components/Header";
 import Popup from "../../components/Popup";
 import { TCategory, TCategoryItem } from "../../interfaces";
@@ -226,6 +227,8 @@ const EditingPage: FC = () => {
           ))}
         </Item.Group>
       );
+      // } else {
+      //   <EmptyState />;
     }
   };
   return (
@@ -246,13 +249,21 @@ const EditingPage: FC = () => {
                   link
                 />
               </div>
-              <ModifyingSideBar
-                data={categories}
-                selectedCategory={selectedCategory}
-                getSelectedCategory={handleSelectedCategory}
-                getEditedCategory={handleEditCategory}
-                getDeletedCategory={handleDeleteCategory}
-              />
+              {categories && categories.length > 0 ? (
+                <ModifyingSideBar
+                  data={categories}
+                  selectedCategory={selectedCategory}
+                  getSelectedCategory={handleSelectedCategory}
+                  getEditedCategory={handleEditCategory}
+                  getDeletedCategory={handleDeleteCategory}
+                />
+              ) : (
+                <EmptyState
+                  imageSize="small"
+                  sectorName="Categories"
+                  headerSize="h5"
+                />
+              )}
             </Grid.Column>
             <Grid.Column width={12}>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -269,7 +280,13 @@ const EditingPage: FC = () => {
                   link
                 />
               </div>
-              {renderItems()}
+              {renderItems() || (
+                <EmptyState
+                  imageSize="medium"
+                  sectorName="Items"
+                  headerSize="h2"
+                />
+              )}
             </Grid.Column>
           </Grid.Row>
         </Grid>

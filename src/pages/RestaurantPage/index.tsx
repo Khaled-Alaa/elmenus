@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { Container, Grid, Header, Item, Segment } from "semantic-ui-react";
+import EmptyState from "../../components/EmptyState";
 import MainHeader from "../../components/Header";
 import { TCategory } from "../../interfaces";
 import { getCategoriesService, getCategoryItemsService } from "../../services";
@@ -64,15 +65,29 @@ const RestaurantPage: FC = () => {
           <Grid.Row>
             <Grid.Column width={4}>
               <Header as={"h2"}>Menu Categories</Header>
-              <SideBar
-                data={categries}
-                selectedCategory={selectedCategory}
-                getSelectedCategory={handleSelectedCategory}
-              />
+              {categoriesData && categoriesData.length > 0 ? (
+                <SideBar
+                  data={categries}
+                  selectedCategory={selectedCategory}
+                  getSelectedCategory={handleSelectedCategory}
+                />
+              ) : (
+                <EmptyState
+                  imageSize="small"
+                  sectorName="Categories"
+                  headerSize="h5"
+                />
+              )}
             </Grid.Column>
             <Grid.Column width={12}>
               <Header as={"h2"}>{selectedCategory.name} Items</Header>
-              {renderItems()}
+              {renderItems() || (
+                <EmptyState
+                  imageSize="medium"
+                  sectorName="Items"
+                  headerSize="h2"
+                />
+              )}
             </Grid.Column>
           </Grid.Row>
         </Grid>

@@ -25,40 +25,40 @@ const ModifyingSideBar: FC<{
 
   const renderCategories = (categories: TCategory[]) => {
     return categories.map((category) => (
-        <Menu.Item
-          key={category.id}
-          name={category.name}
-          active={selectedCategory.id === category.id}
-          onClick={() => getSelectedCategory(category)}
+      <Menu.Item
+        key={category.id}
+        name={category.name}
+        active={selectedCategory.id === category.id}
+        onClick={() => getSelectedCategory(category)}
+      >
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
         >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            {category.name}
-            <label>
-              <Icon
-                name="pencil alternate"
-                onClick={() => getEditedCategory(category)}
-                circular
-                inverted
-                color="blue"
-                link
-              />
-              <Icon
-                name="trash alternate outline"
-                onClick={() => getDeletedCategory(category)}
-                circular
-                inverted
-                color="red"
-                link
-              />
-            </label>
-          </div>
-        </Menu.Item>
+          {category.name}
+          <label>
+            <Icon
+              name="pencil alternate"
+              onClick={() => getEditedCategory(category)}
+              circular
+              inverted
+              color="blue"
+              link
+            />
+            <Icon
+              name="trash alternate outline"
+              onClick={() => getDeletedCategory(category)}
+              circular
+              inverted
+              color="red"
+              link
+            />
+          </label>
+        </div>
+      </Menu.Item>
     ));
   };
 
