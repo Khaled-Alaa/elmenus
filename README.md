@@ -33,7 +33,7 @@ User can just view the menu page.
 
 ### Main Project
 
-1. Clone the source code from `https://github.com/hamed-farag/todo.git`
+1. Clone the source code from `https://github.com/Khaled-Alaa/elmenus.git`
 2. In your terminal, navigate to the project directory and execute `npm install`
 3. After the previous step, execute `npm run server` to run json-server for fake APIs (http://localhost:8000).
 5. In a new terminal instance, run `npm run start` to run the project locally.
