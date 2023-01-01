@@ -1,16 +1,18 @@
 import React, { FC } from "react";
-import { Modal } from "semantic-ui-react";
+import { Header, Modal } from "semantic-ui-react";
 
 const Popup: FC<{
   isOpen: boolean;
   onTogglePopup: (isOpen: boolean) => void;
   children: React.ReactNode;
+  header: string;
 }> = (props: {
   isOpen: boolean;
   onTogglePopup: (isOpen: boolean) => void;
   children: React.ReactNode;
+  header: string;
 }) => {
-  const { isOpen, onTogglePopup, children } = props;
+  const { isOpen, onTogglePopup, children, header } = props;
   return (
     <Modal
       closeIcon
@@ -19,7 +21,8 @@ const Popup: FC<{
       onOpen={() => onTogglePopup(true)}
       size="tiny"
     >
-      {children}
+      <Header content={header} />
+      <Modal.Content>{children}</Modal.Content>
     </Modal>
   );
 };

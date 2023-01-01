@@ -13,8 +13,6 @@ import { toast } from "react-toastify";
 import EmptyState from "../../components/EmptyState";
 import MainHeader from "../../components/Header";
 import Popup from "../../components/Popup";
-import NewPopup from "../../components/NewPopup";
-
 import { TCategory, TCategoryItem } from "../../interfaces";
 import {
   deleteCategoryService,
@@ -22,21 +20,19 @@ import {
   getCategoriesService,
   getCategoryItemsService,
 } from "../../services";
-import AddCategory from "./components/AddCategory";
-import EditCategory from "./components/EditCategory";
+import AddEditCategoryForm from "./components/AddEditCategory";
 import AddEditItemForm from "./components/AddEditItem";
 import ModifyingMenu from "./components/ModifyingMenu";
 import ModifyingSideBar from "./components/ModifyingSideBar";
 import "./styles.scss";
 
 const EditingPage: FC = () => {
+  //State
   const [selectedCategory, setSelectedCategory] = useState<TCategory>({
     id: 0,
     name: "",
     description: "",
   });
-  const [isAddCategoryPopupOpen, setAddCategoryPopupOpen] =
-    useState<boolean>(false);
   const [categories, setCategories] = useState<TCategory[]>([
     {
       id: 0,
@@ -54,7 +50,46 @@ const EditingPage: FC = () => {
       categoryId: 0,
     },
   ]);
+  
+  const [editCategory, setEditCategory] = useState<TCategory>({
+    id: 0,
+    name: "",
+    description: "",
+  });
+  const [editItem, setEditItem] = useState<TCategoryItem>({
+    image: "",
+    id: 0,
+    name: "",
+    description: "",
+    price: 0,
+    categoryId: 0,
+  });
 
+  const [deleteCategory, setDeleteCategory] = useState<TCategory>({
+    id: 0,
+    name: "",
+    description: "",
+  });
+  const [deleteItem, setDeleteItem] = useState<TCategoryItem>({
+    image: "",
+    id: 0,
+    name: "",
+    description: "",
+    price: 0,
+    categoryId: 0,
+  });
+
+  const [categoryMode, setCategoryMode] = useState<string>("");
+  const [itemMode, setItemMode] = useState<string>("");
+
+  const [isItemPopupOpen, setItemPopupOpen] = useState<boolean>(false);
+  const [isCategoryPopupOpen, setCategoryPopupOpen] = useState<boolean>(false);
+  const [isDeleteItemPopupOpen, setDeleteItemPopupOpen] =
+    useState<boolean>(false);
+  const [isDeleteCategoryPopupOpen, setDeleteCategoryPopupOpen] =
+    useState<boolean>(false);
+
+  //React Query
   const { data: categoriesData } = useQuery(
     ["categories"],
     getCategoriesService,
@@ -68,52 +103,6 @@ const EditingPage: FC = () => {
       },
     }
   );
-
-  useEffect(() => {
-    if (categoriesData && categoriesData.length > 0) {
-      setSelectedCategory(categoriesData[0]);
-    }
-  }, [categoriesData]);
-
-  const handleSelectedCategory = (category: TCategory) => {
-    setSelectedCategory(category);
-  };
-
-  const handleAddCategory = () => {
-    setAddCategoryPopupOpen(true);
-  };
-
-  const handleAddNewCategory = (category: TCategory) => {
-    setCategories([...categories, category]);
-  };
-
-  const [editCategory, setEditCategory] = useState<TCategory>({
-    id: 0,
-    name: "",
-    description: "",
-  });
-  const [editCategoryFlow, setEditCategoryFlow] = useState<boolean>(false);
-  const [isEditCategoryPopupOpen, setEditCategoryPopupOpen] =
-    useState<boolean>(false);
-
-  const handleEditCategoryPopup = (isOpen: boolean) => {
-    setEditCategoryPopupOpen(isOpen);
-  };
-
-  const handleEditExistCategory = (category: TCategory) => {
-    const cloneCategory = [...categories];
-    const editedCategoryIndex = categories.findIndex(
-      (oldCategory) => oldCategory.id === category.id
-    );
-    cloneCategory[editedCategoryIndex] = category;
-    setCategories(cloneCategory);
-  };
-
-  const handleEditCategory = (category: TCategory) => {
-    setEditCategoryPopupOpen(true);
-    setEditCategory(category);
-    setEditCategoryFlow(true);
-  };
 
   const { mutate: mutatedeleteCategory } = useMutation<
     unknown,
@@ -134,27 +123,7 @@ const EditingPage: FC = () => {
       toast.error("Can't delete category");
     },
   });
-  //
-  const [deleteCategory, setDeleteCategory] = useState<TCategory>({
-    id: 0,
-    name: "",
-    description: "",
-  });
-  const [isDeleteCategoryPopupOpen, setDeleteCategoryPopupOpen] =
-    useState<boolean>(false);
 
-  const handleDeleteCategory = (category: TCategory) => {
-    setDeleteCategoryPopupOpen(true);
-    setDeleteCategory(category);
-  };
-  const handleDeleteExistCategory = (category: TCategory) => {
-    mutatedeleteCategory({
-      categoryId: category.id,
-    });
-    setDeleteCategoryPopupOpen(false);
-  };
-
-  ////////////////////////////////////////////////////////////////
   useQuery(
     ["categoryItems", selectedCategory.id],
     () => getCategoryItemsService(selectedCategory.id),
@@ -168,40 +137,6 @@ const EditingPage: FC = () => {
       },
     }
   );
-
-  // const handleAddItem = (categoryId: number) => {
-  //   setPopupOpen(true);
-  // };
-
-  const handleAddNewItem = (categoryItem: TCategoryItem) => {
-    setCategoryItems([...categoryItems, categoryItem]);
-  };
-
-  const handleEditExistItem = (categoryItem: TCategoryItem) => {
-    const cloneCategoryItems = [...categoryItems];
-    const editedItemIndex = categoryItems.findIndex(
-      (oldCategoryItem) => oldCategoryItem.id === categoryItem.id
-    );
-    cloneCategoryItems[editedItemIndex] = categoryItem;
-    setCategoryItems(cloneCategoryItems);
-  };
-
-  const [editItem, setEditItem] = useState<TCategoryItem>({
-    image: "",
-    id: 0,
-    name: "",
-    description: "",
-    price: 0,
-    categoryId: 0,
-  });
-  const [itemMode, setItemMode] = useState<string>("");
-  const [isitemPopupOpen, setItemPopupOpen] = useState<boolean>(false);
-
-  const handleEditItem = (item: TCategoryItem) => {
-    setItemPopupOpen(true);
-    setEditItem(item);
-    setItemMode("edit");
-  };
 
   const { mutate } = useMutation<unknown, unknown, { itemId: number }>(
     ({ itemId: categoryitemId }) => deleteItemService(categoryitemId),
@@ -222,16 +157,79 @@ const EditingPage: FC = () => {
     }
   );
 
-  const [deleteItem, setDeleteItem] = useState<TCategoryItem>({
-    image: "",
-    id: 0,
-    name: "",
-    description: "",
-    price: 0,
-    categoryId: 0,
-  });
-  const [isDeleteItemPopupOpen, setDeleteItemPopupOpen] =
-    useState<boolean>(false);
+  //React Life Cycle
+  useEffect(() => {
+    if (categoriesData && categoriesData.length > 0) {
+      setSelectedCategory(categoriesData[0]);
+    }
+  }, [categoriesData]);
+
+  //Handlers
+  const handleSelectedCategory = (category: TCategory) => {
+    setSelectedCategory(category);
+  };
+
+  const handleAddNewCategory = (category: TCategory) => {
+    setCategories([...categories, category]);
+  };
+
+  const handleCategoryPopup = (isOpen: boolean) => {
+    setCategoryPopupOpen(isOpen);
+  };
+
+  const handleEditExistCategory = (category: TCategory) => {
+    const cloneCategory = [...categories];
+    const editedCategoryIndex = categories.findIndex(
+      (oldCategory) => oldCategory.id === category.id
+    );
+    cloneCategory[editedCategoryIndex] = category;
+    setCategories(cloneCategory);
+  };
+
+  const handleEditCategory = (category: TCategory) => {
+    setCategoryPopupOpen(true);
+    setEditCategory(category);
+    setCategoryMode("edit");
+  };
+
+  const handleDeleteCategory = (category: TCategory) => {
+    setDeleteCategoryPopupOpen(true);
+    setDeleteCategory(category);
+  };
+  const handleDeleteExistCategory = (category: TCategory) => {
+    mutatedeleteCategory({
+      categoryId: category.id,
+    });
+    setDeleteCategoryPopupOpen(false);
+    setSelectedCategory(categories[0]);
+
+    // 23dffdfd
+    // fdfdfdgfd
+    // dfgfdgdfgdf
+    // dfgsfddddddddd
+    // sdfffffffffff
+    // sdffffffffffff
+    // sdffffffffff
+  };
+
+  const handleAddNewItem = (categoryItem: TCategoryItem) => {
+    setCategoryItems([...categoryItems, categoryItem]);
+  };
+
+  const handleEditExistItem = (categoryItem: TCategoryItem) => {
+    const cloneCategoryItems = [...categoryItems];
+    const editedItemIndex = categoryItems.findIndex(
+      (oldCategoryItem) => oldCategoryItem.id === categoryItem.id
+    );
+    cloneCategoryItems[editedItemIndex] = categoryItem;
+    setCategoryItems(cloneCategoryItems);
+  };
+
+  const handleEditItem = (item: TCategoryItem) => {
+    setItemPopupOpen(true);
+    setEditItem(item);
+    setItemMode("edit");
+  };
 
   const handleDeleteItem = (item: TCategoryItem) => {
     setDeleteItemPopupOpen(true);
@@ -243,10 +241,6 @@ const EditingPage: FC = () => {
       itemId: item.id,
     });
     setDeleteItemPopupOpen(false);
-  };
-
-  const handleAddCategoryPopup = (isOpen: boolean) => {
-    setAddCategoryPopupOpen(isOpen);
   };
 
   const handleItemPopup = (isOpen: boolean) => {
@@ -269,6 +263,7 @@ const EditingPage: FC = () => {
       );
     }
   };
+
   return (
     <>
       <MainHeader />
@@ -280,7 +275,10 @@ const EditingPage: FC = () => {
                 <Header as={"h2"}>Menu Categories</Header>
                 <Icon
                   name="add"
-                  onClick={() => handleAddCategory()}
+                  onClick={() => {
+                    setCategoryPopupOpen(true);
+                    setCategoryMode("add");
+                  }}
                   circular
                   inverted
                   color="green"
@@ -328,24 +326,31 @@ const EditingPage: FC = () => {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        <AddCategory
-          isOpen={isAddCategoryPopupOpen}
-          onTogglePopup={handleAddCategoryPopup}
-          actions={handleAddNewCategory}
-        />
-        <EditCategory
-          isOpen={isEditCategoryPopupOpen}
-          onTogglePopup={handleEditCategoryPopup}
-          actions={handleEditExistCategory}
-          categoryData={editCategory}
-        />
-        <NewPopup
-          isOpen={isitemPopupOpen}
+        <Popup
+          isOpen={isCategoryPopupOpen}
+          onTogglePopup={handleCategoryPopup}
+          header={
+            categoryMode === "edit"
+              ? `Edit ${editCategory.name} category`
+              : "Add New Category"
+          }
+        >
+          <AddEditCategoryForm
+            actions={
+              categoryMode === "edit"
+                ? handleEditExistCategory
+                : handleAddNewCategory
+            }
+            onTogglePopup={handleCategoryPopup}
+            categoryData={editCategory}
+            categoryMode={categoryMode}
+          />
+        </Popup>
+        <Popup
+          isOpen={isItemPopupOpen}
           onTogglePopup={handleItemPopup}
           header={
-            itemMode === "edit"
-              ? `Edit ${editItem.name} Item`
-              : "Add New Item"
+            itemMode === "edit" ? `Edit ${editItem.name} Item` : "Add New Item"
           }
         >
           <AddEditItemForm
@@ -357,7 +362,7 @@ const EditingPage: FC = () => {
             itemData={editItem}
             itemMode={itemMode}
           />
-        </NewPopup>
+        </Popup>
         <Confirm
           open={isDeleteItemPopupOpen}
           header={`You are going to delete ${deleteItem.name} item`}

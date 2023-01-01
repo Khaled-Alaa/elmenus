@@ -66,9 +66,8 @@ Administrator Credential
 │   │   ├───EditingPage                 # the Admin page that list menu catgories and items and 
 │   │   │   │                             can add/edit/update/delete categories and items.
 │   │   │   └───components
-│   │   │       ├───AddCategory         # componet for add category
+│   │   │       ├───AddEditCategory     # form for add and edit category
 │   │   │       ├───AddEditItem         # form for add and edit item
-│   │   │       ├───EditCategory        # componet for edit category
 │   │   │       ├───ModifyingMenu       # listing all category items
 │   │   │       └───ModifyingSideBar    # listing all categories
 │   │   ├───LoginPage                   # login page for admis to can modify categories and items.
