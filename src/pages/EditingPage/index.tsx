@@ -50,7 +50,7 @@ const EditingPage: FC = () => {
       categoryId: 0,
     },
   ]);
-  
+
   const [editCategory, setEditCategory] = useState<TCategory>({
     id: 0,
     name: "",
@@ -202,14 +202,6 @@ const EditingPage: FC = () => {
     });
     setDeleteCategoryPopupOpen(false);
     setSelectedCategory(categories[0]);
-
-    // 23dffdfd
-    // fdfdfdgfd
-    // dfgfdgdfgdf
-    // dfgsfddddddddd
-    // sdfffffffffff
-    // sdffffffffffff
-    // sdffffffffff
   };
 
   const handleAddNewItem = (categoryItem: TCategoryItem) => {
